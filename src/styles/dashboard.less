@@ -1,0 +1,86 @@
+.main-view{
+    height: 100vh;
+}
+.main-nav{
+    position: fixed;
+    width: @nav-width;
+    height:  100vh;
+    background: #eee;
+    transition: width ease 0.4s;
+    &.collapsed{
+        width: @nav-collapsed-width;
+        .main-sidebar{
+            li>a{
+                height: 50px;
+                line-height: 50px;
+                // text-align: center;
+                padding-left: 20px;
+            }
+            .menu-text{
+                display: none;
+            }
+            .sub-menus{
+                .menu-item>a{
+                    padding-left: 20px;
+                }
+            }
+        }
+    }
+    .main-sidebar{
+        .menu-item>a{
+            height: 50px;
+            line-height: 50px;
+            padding-left: 20px;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            color: #333;
+            &.active{
+                background: @active-nav-color;
+                color: #fff;
+                &:hover{
+                    background: @light-primary-color;
+                }
+            }
+            &:hover{
+                background: #e3e3e3;
+            }
+        }
+        .sub-menus{
+            height: 0px;
+            overflow: hidden;
+            transition: all ease 0.3s;
+            &.collapsed{
+                height: 80px;
+            }
+            .menu-item>a{
+                height: 40px;
+                line-height: 40px;
+                padding-left: 30px;
+            }
+        }
+        .menu-text{
+            margin-left: 10px;
+        }
+    }
+
+    .collapse-toggle{
+        position: absolute;
+        top: 45%;
+        left: 100%;
+        background: #eee;
+        padding: 3px;
+        padding-left: 1px;
+    }
+}
+
+
+.main-content{
+    margin-left: @nav-width;
+    height: 100vh;
+    transition: margin-left ease 0.4s;
+}
+
+.collapsed+.main-content{
+    margin-left: @nav-collapsed-width;
+}
