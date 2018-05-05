@@ -5,7 +5,7 @@ module.exports = {
     mode: 'development',
     entry: ['babel-polyfill', './src/'],
     output: {
-        path: path.resolve(__dirname, './dist'),
+        path: path.resolve(__dirname, '../dist'),
         filename: 'main.js'
     },
     devtool: 'cheap-source-map',
