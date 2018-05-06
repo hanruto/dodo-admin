@@ -1,11 +1,5 @@
-@keyframes jump-ball{
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}
+
+  
 .loading{
     position: fixed;
     top: 0;
@@ -14,32 +8,39 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.3);
     z-index: 9999;
-    .loading-ball-group{
+    .lds-hourglass {
+        display: inline-block;
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        display: flex;
-        width: 120px;
-        justify-content: space-between;
-    }
-    .loading-ball{
-        width: 30px;
-        height: 30px;
-        opacity: 1;
-        border-radius: 15px;
-        background: @primary-color;
-        display: inline-block;
-        position: relative;
-        animation: jump-ball 1s ease infinite backwards;
-    }
-
-    .loading-ball:nth-child(2){
-        animation: jump-ball 1s ease 0.4s infinite backwards;
-    }
-
-    .loading-ball:nth-child(3){
-        animation: jump-ball 1s ease 0.8s infinite backwards;
-    }
+        transform: translate(-50%, -50%);
+        width: 64px;
+        height: 64px;
+      }
+      .lds-hourglass:after {
+        content: " ";
+        display: block;
+        border-radius: 50%;
+        width: 0;
+        height: 0;
+        margin: 6px;
+        box-sizing: border-box;
+        border: 26px solid @primary-color;
+        border-color:  @primary-color transparent  @primary-color transparent;
+        animation: lds-hourglass 1.2s infinite;
+      }
+      @keyframes lds-hourglass {
+        0% {
+          transform: rotate(0);
+          animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        }
+        50% {
+          transform: rotate(900deg);
+          animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        100% {
+          transform: rotate(1800deg);
+        }
+      }
 }
 

@@ -61,11 +61,7 @@ export default class Interceptor extends React.Component {
             <div>
                 {this.state.notAuthenticated && <Redirect to="/login" />}
                 {!!this.state.requestsCount && <div className="loading">
-                    <ul className="loading-ball-group">
-                        <li className="loading-ball"></li>
-                        <li className="loading-ball"></li>
-                        <li className="loading-ball"></li>
-                    </ul>
+                    <div className="lds-hourglass"></div>
                 </div>}
             </div>
         )

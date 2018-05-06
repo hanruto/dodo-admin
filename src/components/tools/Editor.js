@@ -45,7 +45,7 @@ let stateToHtmlOption = {
                         padding: '5px 10px',
                         fontSize: '16px'
                     }
-                };
+                }; break;
             default: return null;
         }
     },
@@ -79,6 +79,9 @@ let defaultBlockType = [
     { el: 'H5', type: 'header-five' },
     { el: 'H6', type: 'header-six' },
     { el: 'PRE', type: 'blockquote' },
+    { el: '</>', type: 'code-block' },
+    { el: <Icon type="bars" />, type: 'ordered-list-item' },
+    { el: <Icon type="profile" />, type: 'unordered-list-item' },
     { el: <Icon type="sync" />, type: 'unstyled' }
 ];
 
@@ -121,12 +124,18 @@ const Link = (props) => {
 
 const Image = (props) => {
     const { src } = Entity.get(props.entityKey).getData();
-    return <img src={src} />;
+    return <img className="img-responsive" src={src} />;
 };
+
+const Video = (props) => {
+    const { src } = Entity.get(props.entityKey).getData();
+    return <video style={{ maxWidth: '100%' }} src={src} controls="controls" />;
+}
 
 const decorator = new CompositeDecorator([
     { strategy: stratetyCreater('LINK'), component: Link, },
-    { strategy: stratetyCreater('IMAGE'), component: Image }
+    { strategy: stratetyCreater('IMAGE'), component: Image },
+    { strategy: stratetyCreater('VIDEO'), component: Video }
 ]);
 
 export default class DraftEditor extends React.Component {
@@ -142,12 +151,12 @@ export default class DraftEditor extends React.Component {
             this.props.onChange(stateToHTML(content, stateToHtmlOption));
             this.setState({ editorState });
         };
-        this.onTab = this.onTab.bind(this);
         this.focus = this.focus.bind(this);
         this.pasteImage = this.pasteImage.bind(this);
         this.handleKeyCommand = this.handleKeyCommand.bind(this);
         this.createImageEntity = this.createImageEntity.bind(this);
         this.createLinkEntity = this.createLinkEntity.bind(this);
+        this.createVideoEntity = this.createVideoEntity.bind(this);
     }
 
     componentWillMount() {
@@ -190,12 +199,6 @@ export default class DraftEditor extends React.Component {
         }
     }
 
-    onTab(e) {
-        e.preventDefault();
-        const maxDepth = 4;
-        this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
-    }
-
     focus(e) {
         if (e.target.getAttribute('name') === 'editor-wraper' && !this.state.editorState.getSelection) {
             this.setState({ editorState: EditorState.moveFocusToEnd(this.state.editorState) });
@@ -226,14 +229,20 @@ export default class DraftEditor extends React.Component {
         this.setState({ editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ') });
     }
 
+    createVideoEntity(src) {
+        const { editorState } = this.state;
+        const contentState = editorState.getCurrentContent();
+        const contentStateWithEntity = contentState.createEntity('VIDEO', 'MUTABLE', { src });
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        this.setState({ editorState: AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ') });
+    }
+
     createLinkEntity(href) {
         const { editorState } = this.state;
         const contentState = editorState.getCurrentContent();
         const contentStateWithEntity = contentState.createEntity('LINK', 'MUTABLE', { href });
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-        this.setState({
-            editorState: RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey)
-        });
+        this.setState({ editorState: RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey) });
     }
 
     render() {
@@ -273,7 +282,8 @@ export default class DraftEditor extends React.Component {
                             <span className="editor-btn"
                                 onClick={e => this.showURLInput('img', this.createImageEntity)}><Icon type="picture" /></span>
                             <span className="editor-btn"><Icon type="notification" /></span>
-                            <span className="editor-btn"><Icon type="video-camera" /></span>
+                            <span className="editor-btn"
+                                onClick={e => this.showURLInput('video', this.createVideoEntity)}><Icon type="video-camera" /></span>
                             {!this.state.fullScreen && <span className="editor-btn" onClick={e => this.setState({ fullScreen: true })}><Icon type="arrows-alt" /></span>}
                             {this.state.fullScreen && <span className="editor-btn" onClick={e => this.setState({ fullScreen: false })}><Icon type="shrink" /></span>}
                         </div>
@@ -287,7 +297,6 @@ export default class DraftEditor extends React.Component {
 
                             // event
                             onChange={this.onChange}
-                            onTab={this.onTab}
                             onPaste={(value) => (console.log('paste', value))}
                             handlePastedFiles={this.pasteImage}
                             handleDroppedFiles={this.pasteImage}
