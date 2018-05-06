@@ -25,18 +25,19 @@ export default class AdminList extends React.Component {
             title: '身份',
             dataIndex: 'role',
             key: 'role',
-        }, {
-            title: '管理',
-            dataIndex: 'action',
-            key: 'action',
-        }];
+        }]
+        // }, {
+        //     title: '管理',
+        //     dataIndex: 'action',
+        //     key: 'action',
+        // }];
 
         return (
             <div className="do-container">
                 <Table
                     dataSource={this.state.auths.map((data, index) => {
                         data.key = index
-                        data.action = <span><Icon type="delete" /><Icon type="edit" /></span>
+                        // data.action = <span><Icon type="delete" /><Icon type="edit" /></span>
                         return data
                     })}
                     columns={columns}

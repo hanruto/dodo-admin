@@ -2,10 +2,9 @@ import React from 'react'
 import { Table, Icon, Popconfirm } from 'antd'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {dateFilter} from './tools/tool'
+import { dateFilter } from './tools/tool'
 import ConfirmDelete from './tools/ConfirmDelete'
 
-console.log(dateFilter)
 export default class AdminList extends React.Component {
     constructor() {
         super();
@@ -69,7 +68,7 @@ export default class AdminList extends React.Component {
         ]
 
         return <div className="do-container">
-            <Table columns={columns} dataSource={this.state.blogs} />
+            <Table pagination={{ size: 'small', pageSize: 20 }} columns={columns} dataSource={this.state.blogs} />
         </div>
     }
 }

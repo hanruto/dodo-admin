@@ -1,0 +1,363 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  padding: 10px;
+}
+img {
+  max-width: 100%;
+}
+.clearfix {
+  overflow: auto;
+  height: 1%;
+}
+.main-view {
+  height: 100vh;
+}
+.main-nav {
+  position: fixed;
+  width: 200px;
+  height: 100vh;
+  background: #eee;
+  transition: width ease 0.4s;
+}
+.main-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.main-nav.collapsed {
+  width: 52px;
+}
+.main-nav.collapsed .main-sidebar li > a {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 20px;
+}
+.main-nav.collapsed .main-sidebar .menu-text {
+  display: none;
+}
+.main-nav.collapsed .main-sidebar .sub-menus .menu-item > a {
+  padding-left: 20px;
+}
+.main-nav .main-sidebar .menu-item > a {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 20px;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+  color: #333;
+}
+.main-nav .main-sidebar .menu-item > a.active {
+  background: #1890ff;
+  color: #fff;
+}
+.main-nav .main-sidebar .menu-item > a.active:hover {
+  background: #18aeff;
+}
+.main-nav .main-sidebar .menu-item > a:hover {
+  background: #e3e3e3;
+}
+.main-nav .main-sidebar .sub-menus {
+  height: 0px;
+  overflow: hidden;
+  transition: all ease 0.3s;
+}
+.main-nav .main-sidebar .sub-menus.collapsed {
+  height: 80px;
+}
+.main-nav .main-sidebar .sub-menus .menu-item > a {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 30px;
+}
+.main-nav .main-sidebar .menu-text {
+  margin-left: 10px;
+}
+.main-nav .collapse-toggle {
+  position: absolute;
+  top: 45%;
+  left: 100%;
+  background: #eee;
+  padding: 3px;
+  padding-left: 1px;
+}
+.main-content {
+  margin-left: 200px;
+  height: 100vh;
+  transition: margin-left ease 0.4s;
+}
+.collapsed + .main-content {
+  margin-left: 52px;
+}
+.login-form {
+  width: 350px;
+  margin: 0 auto;
+  transform: translateY(-50%) translateX(-50%);
+  left: 50%;
+  position: absolute;
+  top: 40%;
+}
+.login-form .logo {
+  width: 300px;
+  margin: 0 auto;
+  margin-bottom: 25px;
+}
+.logo-brand {
+  text-align: center;
+  height: 60px;
+  line-height: 60px;
+}
+.logo-brand img {
+  height: 30px;
+}
+.do-group {
+  margin-bottom: 15px;
+}
+.do-input {
+  text-indent: 15px;
+  width: 100%;
+  border: 1px solid #ccc;
+  line-height: 34px;
+  height: 34px;
+  border-radius: 15px;
+}
+.do-input:focus {
+  outline: none;
+}
+.do-input::placeholder {
+  text-transform: capitalize;
+}
+.do-btn {
+  border: 1px solid #ccc;
+  background: none;
+  padding: 6px 15px;
+  text-transform: capitalize;
+  color: #666;
+  border-radius: 15px;
+}
+.do-btn a {
+  text-decoration: none;
+  color: #666;
+}
+.do-btn:focus {
+  outline: none;
+}
+.do-btn:hover {
+  background: #eee;
+}
+.full-btn {
+  width: 100%;
+}
+.primary-btn {
+  background: #1890ff;
+  border: 1px solid #1890ff;
+  color: #fff;
+}
+.primary-btn a {
+  color: #fff;
+}
+.primary-btn:hover {
+  background: #18aeff;
+}
+.container {
+  padding: 0 15px;
+}
+.do-container {
+  padding: 20px 30px 0 30px;
+}
+.do-md-container {
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.do-content-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 15px 30px 15px;
+}
+.action {
+  font-size: 16px;
+  color: #1890ff;
+}
+.action:hover {
+  color: #18aeff;
+  cursor: pointer;
+}
+.full-page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  min-height: 100vh;
+  overflow: auto;
+  height: 1%;
+}
+.do-title {
+  font-size: 3em;
+  margin: 20px 0 10px 0;
+  font-weight: 600;
+}
+.do-sub-title {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 10px 0 5px 0;
+}
+.do-header {
+  padding: 12px 0;
+  background: #fff;
+  box-shadow: 0 0 5px 1px #999;
+}
+.do-header a {
+  color: #fff;
+}
+.do-header .action-icon {
+  color: #fff;
+}
+.do-header .logo {
+  height: 40px;
+}
+.pull-right {
+  float: right;
+}
+.middle-row {
+  display: flex;
+  align-items: center;
+}
+.draft-editor-full {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 99999;
+}
+.editor-header {
+  padding: 5px 5px;
+  background: #eee;
+}
+.editor-content {
+  border-top: none;
+  min-height: 700px;
+  padding: 10px 15px;
+  border: 1px solid #eee;
+  background: #fff;
+}
+.editor-content-full {
+  border-top: none;
+  height: calc(50vh);
+  padding: 0px 15px;
+  overflow-y: auto;
+  background: #fff;
+}
+.editor-btn-group {
+  display: inline-block;
+  padding: 0 5px;
+  border-left: 1px solid #ccc;
+}
+.editor-btn-group:first-child {
+  border-left: none;
+}
+.editor-btn.active {
+  background: #999;
+  color: #fff;
+}
+.editor-btn {
+  padding: 0 8px;
+  height: 30px;
+  line-height: 30px;
+  font-size: 14px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all ease 0.1s;
+}
+.editor-btn:hover {
+  background: #ddd;
+}
+.editor-footer {
+  padding: 10px 0;
+}
+.editor-blockquote {
+  background: #f3f3f3;
+  color: #666;
+  border-left: 10px solid #ccc;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+.editor-code-block {
+  /* todo */
+  background: #f3f3f3;
+  font-size: 10px;
+  padding: 5px;
+  margin: 0;
+}
+.editor-text-left {
+  text-align: left;
+}
+.editor-text-right {
+  text-align: right;
+}
+.editor-text-center {
+  text-align: center;
+}
+.color-show {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+}
+.loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+}
+.loading .lds-facebook {
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+}
+.loading .lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 6px;
+  width: 13px;
+  background: #1890ff;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.loading .lds-facebook div:nth-child(1) {
+  left: 6px;
+  animation-delay: -0.24s;
+}
+.loading .lds-facebook div:nth-child(2) {
+  left: 26px;
+  animation-delay: -0.12s;
+}
+.loading .lds-facebook div:nth-child(3) {
+  left: 45px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 6px;
+    height: 51px;
+  }
+  50%,
+  100% {
+    top: 19px;
+    height: 26px;
+  }
+}

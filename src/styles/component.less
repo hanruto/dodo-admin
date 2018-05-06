@@ -29,9 +29,9 @@
     text-indent: 15px;
     width: 100%;
     border: 1px solid #ccc;
-    line-height: 34px;
-    height: 34px;
-    border-radius: 15px;
+    line-height: @input-height;
+    height: @input-height;
+    border-radius: @input-radius;
     &:focus{
         outline: none;
     }
@@ -81,6 +81,8 @@
 
 .do-container{
     padding: 20px 30px 0 30px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .do-md-container{
@@ -127,7 +129,7 @@
 }
 
 .do-header{
-    padding: 12px 0;
+    padding: 15px 0;
     background: #fff;
     box-shadow: 0 0 5px 1px #999;
     a{
@@ -137,7 +139,7 @@
         color: #fff;
     }
     .logo{
-        height: 40px;
+        height: 30px;
     }
 }
 

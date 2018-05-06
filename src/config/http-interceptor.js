@@ -3,6 +3,10 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import { message, Divider } from 'antd'
 
+// const baseURL = 'https://api.justdodo.cn';
+const baseURL = 'http://localhost:8081';
+
+
 const getMessageByStatus = status => {
     const statusMap = {
         '401': '未登录',
@@ -22,9 +26,8 @@ export default class Interceptor extends React.Component {
         const _self = this;
 
         // 把axios的配置写入拦截器组件中, react 一切皆组件
-        axios.defaults.baseURL = 'https://api.justdodo.cn'
+        axios.defaults.baseURL = baseURL
         axios.defaults.withCredentials = true
-        // axios.defaults.baseURL = 'http://localhost:8081'
 
         this.state.requestsCount = 0;
         axios.interceptors.request.use(request => {
@@ -61,7 +64,7 @@ export default class Interceptor extends React.Component {
             <div>
                 {this.state.notAuthenticated && <Redirect to="/login" />}
                 {!!this.state.requestsCount && <div className="loading">
-                    <div className="lds-hourglass"></div>
+                    <div className="lds-facebook"><div></div><div></div><div></div></div>
                 </div>}
             </div>
         )
