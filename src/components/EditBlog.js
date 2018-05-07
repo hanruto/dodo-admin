@@ -56,7 +56,7 @@ export default class AddBlog extends React.Component {
             <div className="do-container">
                 <form onSubmit={this.handleSubmit}>
                     <div className="do-group">
-                        <input type="text" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} className="do-input" placeholder="标题" />
+                        <input type="text" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} className="do-input" placeholder="这里写标题" />
                     </div>
                     <div className="do-group">
                         <Select
