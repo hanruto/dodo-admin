@@ -1,6 +1,6 @@
 const path = require('path'),
-    webpack = require('webpack');
-
+    webpack = require('webpack'),
+    HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     mode: 'development',
     entry: ['babel-polyfill', './src/'],
@@ -8,10 +8,8 @@ module.exports = {
         path: path.resolve(__dirname, '../dist'),
         filename: 'main.js'
     },
-    devtool: 'cheap-source-map',
     devServer: {
         hot: true,
-        inline: true,
         open: true,
         overlay: true
     },
@@ -47,6 +45,11 @@ module.exports = {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            template: './index.html',
+            title: 'just dodo',
+            favicon: './favicon.ico'
+        })
     ]
 }
