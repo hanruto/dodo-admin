@@ -11,7 +11,8 @@ module.exports = {
     devServer: {
         hot: true,
         open: true,
-        overlay: true
+        overlay: true,
+        port: 8082
     },
     module: {
         rules: [

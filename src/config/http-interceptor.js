@@ -3,8 +3,8 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import { message, Divider } from 'antd'
 
-const baseURL = 'https://api.justdodo.cn';
-// const baseURL = 'http://localhost:8081';
+// const baseURL = 'https://api.justdodo.cn';
+const baseURL = 'http://localhost:8081';
 
 
 const getMessageByStatus = status => {

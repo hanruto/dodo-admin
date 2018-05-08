@@ -14,7 +14,8 @@ const siderbarMenus = [
 			{ to: '/app/blogs/list', icon: 'smile-o', text: '博客列表' },
 			{ to: '/app/blogs/add', icon: 'smile-o', text: '添加博客' },
 		]
-	}
+	},
+	{ icon: 'picture', text: '图片库', to: '/app/imgs' }
 ]
 
 class SiderBar extends React.Component {

@@ -15,23 +15,11 @@ import { stateToHTML } from 'draft-js-export-html';
 
 let stateToHtmlOption = {
     inlineStyles: {
-        CODE: {
-            style: {
-                backgroundColor: 'rgba(0, 0, 0, 0.05)',
-                fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
-                fontSize: 16,
-                padding: 2,
-            }
-        },
         RED: {
-            style: {
-                color: '#f22'
-            }
+            style: { color: '#f22' }
         },
         BLUE: {
-            style: {
-                color: '#39f'
-            }
+            style: { color: '#39f' }
         }
     },
     blockStyleFn: (block) => {
@@ -46,12 +34,22 @@ let stateToHtmlOption = {
                         fontSize: '16px'
                     }
                 }; break;
+            case 'code-block':
+                return {
+                    style: {
+                        background: '#f3f3f3',
+                        lineHeight: '20px',
+                        padding: '15px'
+                    }
+                }; break;
+                
             default: return null;
         }
     },
     defaultBlockTag: 'div'
 };
 
+// 默认的行内样式
 let defaultInlineStyle = [
     { el: <span style={{ fontWeight: "bold" }}>B</span>, style: 'BOLD' },
     { el: <span style={{ fontStyle: "italic" }}>I</span>, style: 'ITALIC' },
@@ -62,6 +60,7 @@ let defaultInlineStyle = [
     { el: <span><div className="color-show" style={{ backgroundColor: '#3a6' }}></div></span>, style: 'GREEN' }
 ];
 
+// 自定义行内样式
 let customColorStyleMap = {
     'RED': { color: '#e24' },
     'BLUE': { color: '#39f' },
@@ -71,6 +70,7 @@ let customColorStyleMap = {
 
 let customStyleMap = Object.assign({}, customColorStyleMap);
 
+// 这些是用于默认映射标签和类型的对应关系
 let defaultBlockType = [
     { el: 'H1', type: 'header-one' },
     { el: 'H2', type: 'header-two' },
@@ -85,10 +85,15 @@ let defaultBlockType = [
     { el: <Icon type="sync" />, type: 'unstyled' }
 ];
 
+// 样式和css className对应表
 let getBlockStyle = (content) => {
     switch (content.getType()) {
         case 'blockquote':
             return 'editor-blockquote'; break;
+        case 'code-block':
+            return 'editor-code-block'; break;
+        case 'header-one':
+            return 'editor-header-one'; break;
         default:
             return null;
     }
