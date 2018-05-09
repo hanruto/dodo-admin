@@ -20,7 +20,7 @@ class LoginPage extends React.Component {
         axios.post('/auths/login', this.state.userInfo)
             .then(data => {
                 this.props.loginSuccess(data.data);
-                this.setState({redirectToApp: true});
+                this.setState({ redirectToApp: true });
             })
     }
 
@@ -33,7 +33,7 @@ class LoginPage extends React.Component {
     render() {
         return (
             <div>
-                <form className="login-form">
+                <form className="login-form" onSubmit={e => this.login(e)}>
                     <div className="logo">
                         <img src={logo} alt="" />
                     </div>
@@ -44,7 +44,7 @@ class LoginPage extends React.Component {
                         <input value={this.state.userInfo.password} name="password" onChange={this.setValue} type="password" className="do-input" placeholder="密码" />
                     </div>
                     <div className="do-group">
-                        <button className="full-btn primary-btn do-btn" onClick={e => this.login(e)}>
+                        <button className="full-btn primary-btn do-btn">
                             登录
                         </button>
                     </div>

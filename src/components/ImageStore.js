@@ -1,26 +1,67 @@
 import React from 'react'
 import axios from 'axios'
-import { Upload, message, Button, Icon } from 'antd';
+import Uploader from './tools/Uploader'
 
-export default class ImageStore extends React.Component {
+import { Table, Icon } from 'antd'
+import { dateFilter } from './tools/tool';
+import ConfirmDelete from './tools/ConfirmDelete'
+export default class ImageList extends React.Component {
 
-    onUpload = (info) => {
-        if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-        }
-        if (info.file.status === 'done') {
-            message.success(`${info.file.name} file uploaded successfully`);
-        } else if (info.file.status === 'error') {
-            message.error(`${info.file.name} file upload failed.`);
-        }
+    state = {
+        files: []
     }
 
+    delete = file => {
+        axios.delete('/files/' + file._id)
+            .then(this.init)
+    }
+
+    init = () => {
+        axios.get('/files')
+            .then(res => {
+                let files = res.data;
+                files.forEach((file, index) => {
+                    file.img = <div className="img-icon"><img src={'http://localhost:8081' + file.url} alt={file.originName} /></div>
+                    file.key = index;
+                    file.created = dateFilter(file.created);
+                    file.action = <div>
+                        <ConfirmDelete onConfirm={() => this.delete(file)} />
+                    </div>
+                })
+                this.setState({ files })
+            })
+    }
+    componentWillMount() {
+        this.init();
+    }
+
+
     render() {
-        return <Upload name="file" action="http://localhost:8081/files" onChange={this.onUpload} >
-            <Button>
-                <Icon type="upload" /> Click to Upload
-            </Button>
-        </Upload >
+        const columns = [{
+            title: '图片',
+            dataIndex: 'img',
+            key: 'name',
+        }, {
+            title: '标题',
+            dataIndex: 'title',
+            key: 'title',
+        }, {
+            title: '大小',
+            dataIndex: 'size',
+            key: 'size',
+        }, {
+            title: '上传日期',
+            dataIndex: 'created',
+            key: 'created',
+        }, {
+            title: '管理',
+            dataIndex: 'action',
+            key: 'action',
+        }]
+        return <div className="do-container">
+            <Uploader onUploadEnd={this.init} />
+            <Table style={{marginTop: '20px'}} className='img-list' pagination={{ size: 'small', pageSize: 20 }} columns={columns} dataSource={this.state.files} />
+        </div>
     }
 }
 

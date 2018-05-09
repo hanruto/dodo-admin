@@ -7,6 +7,7 @@
     "dev": "webpack-dev-server --progress --color --config ./config/webpack.config.dev.js",
     "build": "webpack --config ./config/webpack.config.dev.js"
   },
+  "proxy": "http://localhost:8081",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
