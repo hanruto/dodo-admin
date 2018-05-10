@@ -103,9 +103,23 @@ class Content extends React.Component {
 }
 
 class Layout extends React.Component {
+	constructor() {
+		super();
+		this.state = { isLogin: true }
+	}
+	componentWillMount() {
+		// 在渲染之前要判断是否登录过了
+		axios.get('/auths/info')
+			.then(res => {
+				if (res.code === 0) {
+					this.setState({ isLogin: false })
+				}
+			})
+	}
 	render() {
 		return (
 			<div className="main-view">
+				{!this.state.isLogin && <Redirect to="/login" />}
 				<SiderBar />
 				<Content />
 			</div>

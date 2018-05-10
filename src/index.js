@@ -19,7 +19,7 @@ import Interceptor from './config/http-interceptor'
 var initState = {}
 const store = createStore(reducer, initState)
 
-// 渲染页面
+// 渲染页面 提供Provider和hashrouter 然后是拦截器
 ReactDom.render(
     <Provider store={store}>
         <HashRouter>

@@ -3,10 +3,9 @@ import axios from 'axios'
 import { Redirect } from 'react-router-dom'
 import { message, Divider } from 'antd'
 
-const baseURL = 'https://api.justdodo.cn';
-// const baseURL = 'http://localhost:8081';
-
-
+import config from './index'
+// const baseURL = 'https://api.justdodo.cn';
+const baseURL = config.adminHost
 const getMessageByStatus = status => {
     const statusMap = {
         '401': '未登录',

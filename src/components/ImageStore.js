@@ -2,13 +2,16 @@ import React from 'react'
 import axios from 'axios'
 import Uploader from './tools/Uploader'
 
-import { Table, Icon } from 'antd'
-import { dateFilter } from './tools/tool';
+import { Table, Icon, Pagination } from 'antd'
+import { dateFilter } from './tools/tool'
 import ConfirmDelete from './tools/ConfirmDelete'
+
 export default class ImageList extends React.Component {
 
+    limit = 15
     state = {
-        files: []
+        files: [],
+        page: 1
     }
 
     delete = file => {
@@ -16,11 +19,14 @@ export default class ImageList extends React.Component {
             .then(this.init)
     }
 
-    init = () => {
-        axios.get('/files')
+    init = (option) => {
+        option = option || {};
+        const page = option.page || this.state.page;
+        const limit = option.limit || this.limit;
+        axios.get('/files', { params: { page, limit } })
             .then(res => {
-                let files = res.data;
-                files.forEach((file, index) => {
+                let files = res.data.docs;
+                files && files.forEach((file, index) => {
                     file.img = <div className="img-icon"><img src={'http://localhost:8081' + file.url} alt={file.originName} /></div>
                     file.key = index;
                     file.created = dateFilter(file.created);
@@ -28,7 +34,9 @@ export default class ImageList extends React.Component {
                         <ConfirmDelete onConfirm={() => this.delete(file)} />
                     </div>
                 })
-                this.setState({ files })
+                const totalCount = res.data.count;
+                const page = res.data.page;
+                this.setState({ files, page, totalCount })
             })
     }
     componentWillMount() {
@@ -60,7 +68,17 @@ export default class ImageList extends React.Component {
         }]
         return <div className="do-container">
             <Uploader onUploadEnd={this.init} />
-            <Table style={{marginTop: '20px'}} className='img-list' pagination={{ size: 'small', pageSize: 20 }} columns={columns} dataSource={this.state.files} />
+            <Table style={{ marginTop: '20px' }} className='img-list' columns={columns} dataSource={this.state.files} pagination={false} />
+            <div style={{ margin: '20px 0', textAlign: 'center' }}>
+                <Pagination
+                    total={this.state.totalCount}
+                    pageSize={this.limit}
+                    defaultCurrent={1}
+                    defaultPageSize={this.limit}
+                    current={this.state.page}
+                    onChange={page => { this.setState({ page }); this.init({ page }) }}
+                />
+            </div>
         </div>
     }
 }
