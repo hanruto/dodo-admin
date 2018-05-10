@@ -5,6 +5,7 @@ import Uploader from './tools/Uploader'
 import { Table, Icon, Pagination } from 'antd'
 import { dateFilter } from './tools/tool'
 import ConfirmDelete from './tools/ConfirmDelete'
+import config from '../config'
 
 export default class ImageList extends React.Component {
 
@@ -27,7 +28,7 @@ export default class ImageList extends React.Component {
             .then(res => {
                 let files = res.data.docs;
                 files && files.forEach((file, index) => {
-                    file.img = <div className="img-icon"><img src={'http://localhost:8081' + file.url} alt={file.originName} /></div>
+                    file.img = <div className="img-icon"><img src={config.adminHost + file.url} alt={file.originName} /></div>
                     file.key = index;
                     file.created = dateFilter(file.created);
                     file.action = <div>

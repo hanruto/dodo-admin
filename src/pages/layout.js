@@ -5,8 +5,6 @@ import { NavLink, Redirect } from 'react-router-dom'
 import logo from '../imgs/dodo-logo.png'
 import DashboardRouter from '../routes/dashboard'
 
-import axios from 'axios'
-
 const siderbarMenus = [
 	{ to: '/app/admins', icon: 'user', text: '管理员' },
 	{
@@ -15,7 +13,8 @@ const siderbarMenus = [
 			{ to: '/app/blogs/add', icon: 'smile-o', text: '添加博客' },
 		]
 	},
-	{ icon: 'picture', text: '图片库', to: '/app/imgs' }
+	{ icon: 'picture', text: '图片库', to: '/app/imgs' },
+	{ icon: 'message', text: '留言', to: '/app/leave-words' }
 ]
 
 class SiderBar extends React.Component {
@@ -103,23 +102,9 @@ class Content extends React.Component {
 }
 
 class Layout extends React.Component {
-	constructor() {
-		super();
-		this.state = { isLogin: true }
-	}
-	componentWillMount() {
-		// 在渲染之前要判断是否登录过了
-		axios.get('/auths/info')
-			.then(res => {
-				if (res.code === 0) {
-					this.setState({ isLogin: false })
-				}
-			})
-	}
 	render() {
 		return (
 			<div className="main-view">
-				{!this.state.isLogin && <Redirect to="/login" />}
 				<SiderBar />
 				<Content />
 			</div>

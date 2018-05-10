@@ -7,11 +7,13 @@ import { connect } from 'react-redux'
 
 class MainRouter extends React.Component {
     render() {
-        return <Switch>
-            <Route exact path="/login" component={LoginPage} />
-            <Route path="/app" component={MainPage} />
-            <Redirect to="/app" />
-        </Switch>
+        return <div>
+            <Switch>
+                <Route exact path="/login" component={LoginPage} />
+                <Route path="/app" component={MainPage} />
+                <Redirect to="/app" />
+            </Switch>
+        </div>
     }
 }
 
