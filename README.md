@@ -12,6 +12,8 @@
 
 https://admin.justdodo.cn  
 
+https://blog.justdodo.cn
+
 超级管理员账号 username: admin  password: 123
 
 ### 鸣谢
