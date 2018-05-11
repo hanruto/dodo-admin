@@ -5,6 +5,7 @@ import { NavLink, Redirect } from 'react-router-dom'
 import logo from '../imgs/dodo-logo.png'
 import DashboardRouter from '../routes/dashboard'
 
+import axios from 'axios'
 const siderbarMenus = [
 	{ to: '/app/admins', icon: 'user', text: '管理员' },
 	{
