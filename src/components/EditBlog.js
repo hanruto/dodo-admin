@@ -40,8 +40,7 @@ export default class AddBlog extends React.Component {
             content: this.state.content,
             tags: this.state.tags,
             title: this.state.title,
-            type: this.state.type,
-            created: new Date(Date.now() - Math.random() * (5 * 24 * 3600 * 1000))
+            type: this.state.type
         };
         if (this.state.blogId) {
             axios.put('/blogs/' + this.state.blogId, data).then(res => {
