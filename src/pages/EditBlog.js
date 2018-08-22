@@ -1,5 +1,5 @@
 import React from 'react'
-import Editor from './tools/Editor'
+import Editor from '../components/Editor'
 import axios from 'axios'
 
 import { Select, Radio } from 'antd';

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import logo from '../imgs/dodo-logo.png'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
@@ -17,7 +16,7 @@ class LoginPage extends React.Component {
 
     login(e) {
         e.preventDefault();
-        axios.post('/auths/login', this.state.userInfo)
+        axios.post('/login', this.state.userInfo)
             .then(data => {
                 this.props.loginSuccess(data.data);
                 this.setState({ redirectToApp: true });

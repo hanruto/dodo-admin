@@ -1,8 +1,6 @@
 import React from 'react'
-import axios from 'axios'
-import { Upload, message, Button, Icon } from 'antd';
-
-import config from '../../config'
+import { Upload, message } from 'antd';
+import { serverHost } from '../config/env'
 
 export default class Uploader extends React.Component {
 
@@ -19,7 +17,7 @@ export default class Uploader extends React.Component {
     }
 
     render() {
-        return <Upload name="file" action={`${config.adminHost}/files`} onChange={this.onUpload}
+        return <Upload name="file" action={`${serverHost}/files`} onChange={this.onUpload}
             showUploadList={false}
             multiple={true}>
             <div className="do-btn btn-primary">Upload</div>

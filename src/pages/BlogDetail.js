@@ -1,10 +1,9 @@
 import React from 'react'
 import axios from 'axios'
-import { Icon, Tag } from 'antd'
+import { Tag } from 'antd'
 import { Link } from 'react-router-dom'
-import Editor from '../components/Editor'
 import logo from '../imgs/dodo-logo.png'
-import { dateFilter } from '../components/tools/tool'
+import { dateFilter } from '../util/tool'
 import EditBlog from './EditBlog'
 
 class ViewBlog extends React.Component {

@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { Icon, Table } from 'antd'
 
-import ConfirmDelete from './tools/ConfirmDelete'
+import ConfirmDelete from '../components/ConfirmDelete'
 
 export default class leaveWordList extends React.Component {
     state = {

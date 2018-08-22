@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Icon, Table } from 'antd'
+import { Table } from 'antd'
 
 
 export default class AdminList extends React.Component {
@@ -12,7 +12,7 @@ export default class AdminList extends React.Component {
     }
 
     componentWillMount() {
-        axios.get('/auths')
+        axios.get('/admins')
             .then(res => this.setState({ auths: res.data }))
     }
 

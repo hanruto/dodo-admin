@@ -9,11 +9,10 @@ import './styles/index.less'
 
 // 引入 routers 和reducers
 import MainRoute from './routes'
-import './config/http-interceptor'
 import reducer from './reducers'
 
 // 配置拦截器
-import Interceptor from './config/http-interceptor'
+import Interceptor from './components/HttpInterceptor'
 
 // 初始化状态
 var initState = {}

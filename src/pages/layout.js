@@ -1,16 +1,15 @@
 import React from 'react'
 import { Icon } from 'antd'
 import { NavLink, Redirect } from 'react-router-dom'
-
-import logo from '../imgs/dodo-logo.png'
 import DashboardRouter from '../routes/dashboard'
-
 import axios from 'axios'
 
 const siderbarMenus = [
 	{ to: '/app/admins', icon: 'user', text: '管理员' },
 	{
-		icon: 'book', text: '博客', subMenus: [
+		icon: 'book',
+		text: '博客',
+		subMenus: [
 			{ to: '/app/blogs/list', icon: 'smile-o', text: '博客列表' },
 			{ to: '/app/blogs/add', icon: 'smile-o', text: '添加博客' },
 		]
@@ -95,23 +94,17 @@ class SiderBar extends React.Component {
 	}
 }
 
-class Content extends React.Component {
-	render() {
-		return <div className="main-content">
-			<DashboardRouter />
-		</div>
-	}
-}
+const Content = () => (
+	<div className="main-content">
+		<DashboardRouter />
+	</div>
+)
 
-class Layout extends React.Component {
-	render() {
-		return (
-			<div className="main-view">
-				<SiderBar />
-				<Content />
-			</div>
-		);
-	}
-}
+const Layout = () => (
+	<div className="main-view">
+		<SiderBar />
+		<Content />
+	</div>
+)
 
 export default Layout;

@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import authenticate from './authenticate'
 
 function reducer(state, action) {

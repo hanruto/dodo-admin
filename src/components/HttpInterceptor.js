@@ -1,11 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-import { message, Divider } from 'antd'
+import { message } from 'antd'
+import { baseApiUrl } from '../config/env'
 
-import config from './index'
-// const baseURL = 'https://api.justdodo.cn';
-const baseURL = config.adminHost
+const baseURL = baseApiUrl;
 const getMessageByStatus = status => {
     const statusMap = {
         '401': '未登录',
@@ -35,26 +34,30 @@ export default class Interceptor extends React.Component {
         })
         axios.interceptors.response.use(response => {
             this.setState({ requestsCount: --this.state.requestsCount })
-            if (response.data.code === 0) {
-                message.error(response.data.msg);
+            if (!response.data.success) {
+                message.error(response.data.message);
                 return Promise.reject(response.data);
             }
-            if (response.data.code === 1) {
-                message.success(response.data.msg);
+            if (response.data.success) {
+                message.success(response.data.message);
             }
             return response.data;
-        }, error => {
+        }, err => {
             this.setState({ requestsCount: --this.state.requestsCount })
             // 如果没有switch匹配得到相应的messageInfo, 那么默认值为 未知的错误
-            if (error && error.response) {
-                message.error(getMessageByStatus(error.response.status))
-                if (error.response.status === 401) {
+            console.log(JSON.stringify(err))
+            if (err && err.response) {
+                message.error(getMessageByStatus(err.response.status))
+                if (err.response.status === 401) {
                     _self.setState({ notAuthenticated: true });
                 }
+                
+                return Promise.reject(err.response.data);
             } else {
                 message.error('什么鬼, 到底怎么了 ? ')
+                return Promise.reject(err)
             }
-            return Promise.reject(error.response.data);
+            
         })
     }
 

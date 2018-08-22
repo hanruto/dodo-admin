@@ -1,9 +1,9 @@
 import React from 'react'
-import { Table, Icon, Popconfirm } from 'antd'
+import { Table, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { dateFilter } from './tools/tool'
-import ConfirmDelete from './tools/ConfirmDelete'
+import { dateFilter } from '../util/tool'
+import ConfirmDelete from '../components/ConfirmDelete'
 
 export default class AdminList extends React.Component {
     constructor() {
@@ -16,7 +16,7 @@ export default class AdminList extends React.Component {
 
     delete(item) {
         this.setState()
-        axios.delete('/blogs/' + item._id)
+        axios.delete('/articles/' + item._id)
             .then(res => {
                 let blogs = this.state.blogs.filter(blog => blog._id !== item._id)
                 this.setState({ blogs })
@@ -24,7 +24,7 @@ export default class AdminList extends React.Component {
     }
 
     componentWillMount() {
-        axios.get('/blogs')
+        axios.get('/articles')
             .then(res => {
                 let blogs = res.data;
                 blogs.forEach((item, index) => {

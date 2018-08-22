@@ -1,11 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import Uploader from './tools/Uploader'
+import Uploader from '../components/Uploader'
 
-import { Table, Icon, Pagination } from 'antd'
-import { dateFilter } from './tools/tool'
-import ConfirmDelete from './tools/ConfirmDelete'
-import config from '../config'
+import { Table, Pagination } from 'antd'
+import { dateFilter } from '../util/tool'
+import ConfirmDelete from '../components/ConfirmDelete'
 
 export default class ImageList extends React.Component {
 
@@ -28,7 +27,7 @@ export default class ImageList extends React.Component {
             .then(res => {
                 let files = res.data.docs;
                 files && files.forEach((file, index) => {
-                    file.img = <div className="img-icon"><img src={config.adminHost + file.url} alt={file.originName} /></div>
+                    file.img = <div className="img-icon"><img src={'' + file.url} alt={file.originName} /></div>
                     file.key = index;
                     file.created = dateFilter(file.created);
                     file.action = <div>
