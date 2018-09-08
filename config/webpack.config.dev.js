@@ -1,6 +1,5 @@
 const baseConfig = require('./webpack.config.base'),
     webpack = require('webpack'),
-    HtmlWebpackPlugin = require('html-webpack-plugin');
     
 const config = Object.assign(baseConfig, {
     mode: 'development',

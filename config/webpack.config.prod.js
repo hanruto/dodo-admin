@@ -1,5 +1,7 @@
 const baseConfig = require('./webpack.config.base')
-    
-module.exports = Object.assign(baseConfig, {
-    mode: 'production'
+const config = Object.assign(baseConfig, {
+  mode: 'production',
 })
+
+
+module.exports = config
