@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --progress --color --config ./config/webpack.config.dev.js",
-    "build": "webpack --config ./config/webpack.config.dev.js"
+    "build": "webpack --config ./config/webpack.config.prod.js"
   },
   "proxy": "http://localhost:8081",
   "devDependencies": {

@@ -1,57 +1,17 @@
-const path = require('path'),
+const baseConfig = require('./webpack.config.base'),
     webpack = require('webpack'),
     HtmlWebpackPlugin = require('html-webpack-plugin');
     
-module.exports = {
+const config = Object.assign(baseConfig, {
     mode: 'development',
-    entry: ['babel-polyfill', './src/'],
-    output: {
-        path: path.resolve(__dirname, '../dist'),
-        filename: 'main.js'
-    },
     devServer: {
         hot: true,
         open: true,
         overlay: true,
-        port: 8082
-    },
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [{
-                    loader: 'style-loader',
-                    options: { sourceMap: true }
-                }, 'css-loader']
-            },
-            {
-                test: /\.less$/,
-                use: ['style-loader', 'css-loader',
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            javascriptEnabled: true,
-                            sourceMap: true,
-                        }
-                    }]
-            },
-            {
-                test: /\.(js|jsx)$/,
-                use: ['babel-loader'],
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.(png|jpg|jpeg|gif)$/,
-                use: ['url-loader']
-            }
-        ]
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new HtmlWebpackPlugin({
-            template: './index.html',
-            title: 'just dodo',
-            favicon: './favicon.ico'
-        })
-    ]
-}
+        port: 8081
+    }
+})
+
+config.plugins.push(new webpack.HotModuleReplacementPlugin())
+
+module.exports = config
