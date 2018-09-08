@@ -1,32 +1,33 @@
-.main-view{
+.main-view {
     height: 100vh;
 }
-.main-nav{
-    ul{
+
+.main-nav {
+    ul {
         list-style: none;
         padding: 0;
         margin: 0;
     }
     position: fixed;
     width: @nav-width;
-    height:  100vh;
+    height : 100vh;
     background: @sidebar-bg-color;
     transition: width ease 0.4s;
-    &.collapsed{
+    &.collapsed {
         width: @nav-collapsed-width;
-        .main-sidebar{
-            .menu-text{
+        .main-sidebar {
+            .menu-text {
                 display: none;
             }
-            .sub-menus{
-                .menu-item>a{
+            .sub-menus {
+                .menu-item>a {
                     padding-left: 20px;
                 }
             }
         }
     }
-    .main-sidebar{
-        .menu-item>a{
+    .main-sidebar {
+        .menu-item>a {
             height: 40px;
             line-height: 40px;
             padding-left: 20px;
@@ -34,36 +35,35 @@
             display: block;
             text-decoration: none;
             color: #333;
-            &.active{
+            &.active {
                 background: @active-nav-color;
                 color: #fff;
-                &:hover{
+                &:hover {
                     background: @light-primary-color;
                 }
             }
-            &:hover{
+            &:hover {
                 background: #e3e3e3;
             }
         }
-        .sub-menus{
+        .sub-menus {
             height: 0px;
             overflow: hidden;
             transition: all ease 0.3s;
-            &.collapsed{
+            &.collapsed {
                 height: 64px;
             }
-            .menu-item>a{
+            .menu-item>a {
                 height: 32px;
                 line-height: 32px;
                 padding-left: 30px;
             }
         }
-        .menu-text{
+        .menu-text {
             margin-left: 10px;
         }
     }
-
-    .collapse-toggle{
+    .collapse-toggle {
         position: absolute;
         top: 45%;
         left: 100%;
@@ -71,15 +71,20 @@
         padding: 3px;
         padding-left: 1px;
     }
+    @media screen and(max-width: 762px) {
+        display: none;
+    }
 }
 
-
-.main-content{
+.main-content {
     margin-left: @nav-width;
+    @media screen and(max-width: 762px) {
+        margin-left: 0
+    }
     height: 100vh;
     transition: margin-left ease 0.4s;
 }
 
-.collapsed+.main-content{
+.collapsed+.main-content {
     margin-left: @nav-collapsed-width;
 }

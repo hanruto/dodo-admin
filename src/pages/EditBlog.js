@@ -27,7 +27,7 @@ export default class AddBlog extends React.Component {
                 type: this.props.type
             })
         }
-        axios.get('/blogs/tags')
+        axios.get('/articles/tags')
             .then(res => {
                 this.setState({ children: res.data })
             })
@@ -43,11 +43,11 @@ export default class AddBlog extends React.Component {
             type: this.state.type
         };
         if (this.state.blogId) {
-            axios.put('/blogs/' + this.state.blogId, data).then(res => {
+            axios.put('/articles/' + this.state.blogId, data).then(res => {
                 this.props.handleBlogChange && this.props.handleBlogChange(res.data);
             })
         } else {
-            axios.post('/blogs', data)
+            axios.post('/articles', data)
         }
     }
 

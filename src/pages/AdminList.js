@@ -22,6 +22,10 @@ export default class AdminList extends React.Component {
             dataIndex: 'username',
             key: 'name',
         }, {
+            title: '昵称',
+            dataIndex: 'nickname',
+            key: 'nickname',
+        }, {
             title: '身份',
             dataIndex: 'role',
             key: 'role',
@@ -40,7 +44,9 @@ export default class AdminList extends React.Component {
                         // data.action = <span><Icon type="delete" /><Icon type="edit" /></span>
                         return data
                     })}
+                    style={{minWidth: 500}}
                     columns={columns}
+                    scroll={{x: true}}
                     pagination={false}
                 />
             </div>

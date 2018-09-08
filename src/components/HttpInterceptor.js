@@ -33,13 +33,17 @@ export default class Interceptor extends React.Component {
             return request;
         })
         axios.interceptors.response.use(response => {
+            const data = response.data
+            if(!data) return Promise.reject(response);
+
             this.setState({ requestsCount: --this.state.requestsCount })
+
             if (!response.data.success) {
                 message.error(response.data.message);
                 return Promise.reject(response.data);
             }
             if (response.data.success) {
-                message.success(response.data.message);
+                response.data.message && message.success(response.data.message);
             }
             return response.data;
         }, err => {
