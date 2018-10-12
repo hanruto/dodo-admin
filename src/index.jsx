@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
-import { Provider, connect } from 'react-redux'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 // 引入样式
 import 'antd/dist/antd.css'
@@ -15,18 +15,18 @@ import reducer from './reducers'
 import Interceptor from './components/HttpInterceptor'
 
 // 初始化状态
-var initState = {}
+const initState = {}
 const store = createStore(reducer, initState)
 
 // 渲染页面 提供Provider和hashrouter 然后是拦截器
 ReactDom.render(
-    <Provider store={store}>
-        <HashRouter>
-            <div>
-                <Interceptor/>
-                <MainRoute />
-            </div>
-        </HashRouter>
-    </Provider>,
-    document.getElementById('app')
-);
+  <Provider store={store}>
+    <HashRouter>
+      <div>
+        <Interceptor />
+        <MainRoute />
+      </div>
+    </HashRouter>
+  </Provider>,
+  document.getElementById('app')
+)

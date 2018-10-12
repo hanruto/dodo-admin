@@ -1,14 +1,15 @@
 const path = require('path'),
-  HtmlWebpackPlugin = require('html-webpack-plugin');
+  HtmlWebpackPlugin = require('html-webpack-plugin')
+
 
 module.exports = {
-  entry: ['babel-polyfill', './src/'],
+  entry: ['babel-polyfill', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'main.js'
+    filename: 'main.js',
   },
   resolve: {
-    extensions: ['.jsx', '.js']
+    extensions: ['.jsx', '.js'],
   },
   module: {
     rules: [
@@ -16,8 +17,8 @@ module.exports = {
         test: /\.css$/,
         use: [{
           loader: 'style-loader',
-          options: { sourceMap: true }
-        }, 'css-loader']
+          options: { sourceMap: true },
+        }, 'css-loader'],
       },
       {
         test: /\.less$/,
@@ -27,25 +28,25 @@ module.exports = {
             options: {
               javascriptEnabled: true,
               sourceMap: true,
-            }
-          }]
+            },
+          }],
       },
       {
         test: /\.(js|jsx)$/,
-        use: ['babel-loader'],
+        use: ['babel-loader', { loader: 'eslint-loader', options: { fix: true } }],
         exclude: /node_modules/,
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,
-        use: ['url-loader']
-      }
-    ]
+        use: ['url-loader'],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: './index.html',
       title: 'just dodo',
-      favicon: './favicon.ico'
-    })
-  ]
+      favicon: './favicon.ico',
+    }),
+  ],
 }

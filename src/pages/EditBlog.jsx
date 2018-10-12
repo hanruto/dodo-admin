@@ -1,87 +1,172 @@
 import React from 'react'
-import Editor from '../components/Editor'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { Select, Radio, Modal, Button } from 'antd'
+import Editor from 'minieditor/index.jsx'
+import logo from '../imgs/dodo-logo.png'
 
-import { Select, Radio } from 'antd';
 
-export default class AddBlog extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            title: '',
-            tags: [],
-            type: 1,
-            content: '',
-            children: []
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
+class EditBlog extends React.Component {
+  editor = React.createRef()
+
+  defaultBlog = {
+    type: 1,
+    tags: [],
+    title: '',
+    content: '',
+  }
+
+  state = {
+    blog: this.defaultBlog,
+    successModalVisible: false,
+  }
+
+  componentDidMount() {
+    this.initialize()
+  }
+
+  componentDidUpdate(prevProps){
+    if (prevProps.location.pathname !== this.props.location.pathname){
+      this.initialize()
     }
+  }
 
-    componentWillMount() {
-        if (this.props.blog) {
-            this.setState({
-                title: this.props.blog.title,
-                tags: this.props.blog.tags,
-                content: this.props.blog.content,
-                blogId: this.props.blog._id,
-                type: this.props.type
-            })
-        }
-        axios.get('/articles/tags')
-            .then(res => {
-                this.setState({ children: res.data })
-            })
+  initialize = () => {
+    this.blogId = this.props.match.params.blogId
+    this.mode = this.blogId === 'add' ? 'add' : 'update'
+    axios.get('/articles/tags')
+      .then(res => this.setState({ children: res.data }))
+
+    if (this.mode !== 'add') {
+      axios.get(`/articles/${this.blogId}`)
+        .then(res => {
+          const blog = res.data
+          this.setState({ blog })
+          this.editor.current.setContent(blog.content)
+        })
+    } else {
+      this.setState({ blog: this.defaultBlog })
+      this.editor.current.setContent()
     }
+  }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        // 如果传入了id的话那么editBlog组件回去更新这个blog
-        const data = {
-            content: this.state.content,
-            tags: this.state.tags,
-            title: this.state.title,
-            type: this.state.type
-        };
-        if (this.state.blogId) {
-            axios.put('/articles/' + this.state.blogId, data).then(res => {
-                this.props.handleBlogChange && this.props.handleBlogChange(res.data);
-            })
-        } else {
-            axios.post('/articles', data)
-        }
+  handleSubmit = e => {
+    e.preventDefault()
+    !this.state.blog.title && (this.state.blog.title = '无题')
+    this.state.blog.content = JSON.stringify(this.state.blog.content)
+    if (this.mode !== 'add') {
+      axios.put(`/articles/${this.blogId}`, this.state.blog)
+        .then(res => {
+          const blog = res.data
+          this.setState({ blog, successModalVisible: true })
+        })
+    } else {
+      axios.post('/articles', this.state.blog)
+        .then(res => {
+          const blog = res.data
+          this.blogId = blog._id
+          this.setState({ blog, successModalVisible: true })
+        })
     }
+  }
 
-    render() {
-        return (
-            <div className="do-container">
-                <form onSubmit={this.handleSubmit}>
-                    <div className="do-group">
-                        <Radio.Group onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
-                            <Radio value={1}>技术博客</Radio>
-                            <Radio value={2}>生活随笔</Radio>
-                        </Radio.Group>
-                    </div>
-                    <div className="do-group">
-                        <input type="text" value={this.state.title} onChange={e => this.setState({ title: e.target.value })} className="do-input" placeholder="这里写标题" />
-                    </div>
-                    <div className="do-group">
-                        <Select
-                            mode="tags"
-                            defaultValue={this.state.tags}
-                            style={{ width: '100%' }}
-                            tokenSeparators={[',']}
-                            onChange={tags => this.setState({ tags })}
-                        >
-                            {this.state.children.map((tag, index) => <Select.Option key={tag}>{tag}</Select.Option>)}
-                        </Select></div>
-                    <div className="do-group">
-                        <Editor content={this.state.content} onChange={content => this.setState({ content })} placeholder="说点什么吧" />
-                    </div>
-                    <div className="do-group">
-                        <button className="do-btn">写完了</button>
-                    </div>
-                </form>
+  handleEdit = (value, attr) => {
+    const { blog } = this.state
+    blog[attr] = value
+    this.setState({ blog })
+  }
+
+  handleReturn = () => {
+    this.props.history.push('/app/blogs')
+  }
+
+  handleCancel = () => {
+    this.setState({ successModalVisible: false })
+  }
+
+  handleRenew = () => {
+    this.setState({ successModalVisible: false })
+    if (this.props.location.pathname !== '/app/blogs/add'){
+      this.props.history.push('/app/blogs/add')
+    }
+  }
+
+  handleContinueEdit = () => {
+    this.setState({ successModalVisible: false })
+    if (this.props.location.pathname === '/app/blogs/add'){
+      this.props.history.push(`/app/blogs/${this.blogId}`)
+    }
+  }
+
+  render() {
+    const { type, title, tags } = this.state.blog
+    const { successModalVisible } = this.state
+
+    return (
+      <div className="blog-edit-page">
+        <div className="blog-view-head">
+          <div className="blog-view-logo">
+            <img src={logo} alt="" />
+          </div>
+
+          <div className="pull-right">
+            {this.mode !== 'add' && <Link to={`/app/blogs/${this.blogId}/view`}><span style={{ marginRight: 10 }}>查看</span></Link>}
+            <Link to={'/app/blogs'}>返回</Link>
+          </div>
+        </div>
+        <div className="do-container">
+          <form onSubmit={this.handleSubmit}>
+            <div className="do-group">
+              <Radio.Group onChange={e => this.handleEdit(e.target.value, 'type')} value={type}>
+                <Radio value={1}>技术博客</Radio>
+                <Radio value={2}>生活随笔</Radio>
+              </Radio.Group>
             </div>
-        )
-    }
+            <div className="do-group">
+              <input type="text" value={title} onChange={e => this.handleEdit(e.target.value, 'title')} className="do-input" placeholder="这里写标题" />
+            </div>
+            <div className="do-group">
+              <Select
+                mode="tags"
+                value={tags}
+                style={{ width: '100%' }}
+                tokenSeparators={[',']}
+                onChange={tags => this.handleEdit(tags, 'tags')}
+              >
+                {tags.map((tag) => <Select.Option key={tag}>{tag}</Select.Option>)}
+              </Select></div>
+            <div className="do-group">
+              <Editor
+                ref={this.editor}
+                onChange={value => this.handleEdit(value, 'content')}
+                placeholder="说点什么吧"
+              />
+            </div>
+            <div className="do-group">
+              <button className="do-btn">提交</button>
+            </div>
+          </form>
+
+          <Modal
+            title="提交成功"
+            visible={successModalVisible}
+            onOk={this.handleOk}
+            onCancel={this.handleReturn}
+            footer={[
+              <Button key="again" type="primary" onClick={this.handleRenew}>再来一篇</Button>,
+              <Button key="submit" onClick={this.handleContinueEdit}>
+              继续编辑
+              </Button>,
+              <Button key="back" onClick={this.handleReturn}>返回列表</Button>,
+            ]}
+          >
+            {this.mode === 'add' ? '恭喜你完成了一篇巨作' : '修改完成啦'}
+          </Modal>
+        </div>
+      </div>
+
+    )
+  }
 }
+
+export default EditBlog

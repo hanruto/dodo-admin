@@ -1,0 +1,45 @@
+import React, { Component } from 'react'
+import axios from 'axios'
+import { Link } from 'react-router-dom'
+import { DraftViewer } from 'minieditor/index.jsx'
+import logo from '../imgs/dodo-logo.png'
+
+
+export default class BlogView extends Component {
+  blogId = this.props.match.params.blogId
+
+  state = {
+    blog: {},
+  }
+
+  componentDidMount() {
+    axios.get(`/articles/${this.blogId}`)
+      .then(res => {
+        const blog = res.data
+        this.setState({ blog })
+      })
+  }
+
+  render() {
+    const { blog } = this.state
+
+    return (
+      <div className="blog-view-page">
+        <div className="blog-view-head">
+          <div className="blog-view-logo">
+            <img src={logo} alt="" />
+          </div>
+
+          <div className="pull-right">
+            <Link to={`/app/blogs/${this.blogId}`}>编辑</Link>
+            <Link to={'/app/blogs'}><span style={{ marginLeft: 10 }}>返回</span></Link>
+          </div>
+        </div>
+        <div className="blog-view-container">
+          <h1 className="blog-view-title">{blog.title}</h1>
+          <DraftViewer content={blog.content} />
+        </div>
+      </div>
+    )
+  }
+}
