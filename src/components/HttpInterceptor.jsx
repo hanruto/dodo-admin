@@ -62,7 +62,7 @@ export default class Interceptor extends React.Component {
 
         return Promise.reject(err.response.data)
       }
-      message.error('什么鬼, 到底怎么了 ? ')
+      message.error('数据请求失败')
 
       return Promise.reject(err)
     })

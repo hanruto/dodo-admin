@@ -5,7 +5,9 @@ import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
 // 引入样式
 import 'antd/dist/antd.css'
+import 'draft-js/dist/Draft.css'
 import './styles/index.less'
+import 'braft-editor/dist/index.css'
 
 // 引入 routers 和reducers
 import MainRoute from './routes'

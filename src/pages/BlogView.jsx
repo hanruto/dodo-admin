@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
-import { DraftViewer } from 'minieditor/index.jsx'
 import logo from '../imgs/dodo-logo.png'
 
 
@@ -37,7 +36,7 @@ export default class BlogView extends Component {
         </div>
         <div className="blog-view-container">
           <h1 className="blog-view-title">{blog.title}</h1>
-          <DraftViewer content={blog.content} />
+          <div className="blog-view-content" dangerouslySetInnerHTML={{ __html: blog.content }} />
         </div>
       </div>
     )

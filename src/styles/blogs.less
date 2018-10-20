@@ -19,7 +19,7 @@
 .blog-view-head {
   line-height: 60px;
   padding: 0 60px;
-  @media screen and (max-width: 1200px){
+  @media screen and (max-width: 1200px) {
     padding: 0 20px;
   }
   .blog-view-logo {
@@ -27,6 +27,38 @@
     display: inline-block;
     img {
       width: 100%;
+    }
+  }
+}
+
+.editor-wrapper {
+  border: 1px solid #ccc;
+  .bf-controlbar {
+    padding: 0;
+    .control-item,
+    .dropdown-handler,
+    .dropdown-handler span,
+    .dropdown-handler i,
+    .control-item.button,
+    .control-item.button i:before{
+      height: 30px;
+      line-height: 30px;
+      min-width: 30px;
+      margin: 0;
+      padding: 0;
+      
+    }
+    .text-color-dropdown .dropdown-handler,
+    .link-editor-dropdown .dropdown-handler,
+    .bf-emoji-dropdown .dropdown-handler, {
+      padding-left: 0;
+    }
+    .dropdown-handler {
+      padding-left: 10px;
+    }
+    .separator-line {
+      height: 30px;
+      margin: 0;
     }
   }
 }

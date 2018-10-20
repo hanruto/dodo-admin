@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "webpack-dev-server --progress --color --config ./config/webpack.config.dev.js",
     "build": "webpack --config ./config/webpack.config.prod.js --colors --progress",
-    "analyze": "webpack --config ./config/webpack.config.analyze.js --colors --progress"
+    "analyze": "webpack --config ./config/webpack.config.analyze.js --colors --progress",
+    "start": "node server"
   },
   "proxy": "http://localhost:8081",
   "devDependencies": {
@@ -39,13 +40,9 @@
     "antd": "^3.10.0",
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.0",
-    "draft-js": "^0.10.5",
-    "draft-js-alignment-plugin": "^2.0.5",
-    "draft-js-emoji-plugin": "^2.1.1",
-    "draft-js-export-html": "^1.2.0",
-    "draft-js-import-html": "^1.2.1",
-    "draft-js-plugins-editor": "^2.1.1",
-    "emojione": "^4.0.0",
+    "braft-editor": "^2.1.4",
+    "compression": "^1.7.3",
+    "express": "^4.16.4",
     "react": "^16.3.2",
     "react-color": "^2.14.1",
     "react-dom": "^16.3.2",

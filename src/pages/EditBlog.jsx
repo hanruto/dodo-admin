@@ -2,13 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Select, Radio, Modal, Button } from 'antd'
-import Editor from 'minieditor/index.jsx'
 import logo from '../imgs/dodo-logo.png'
+import BraftEditor from 'braft-editor'
 
 
 class EditBlog extends React.Component {
-  editor = React.createRef()
-
   defaultBlog = {
     type: 1,
     tags: [],
@@ -19,14 +17,15 @@ class EditBlog extends React.Component {
   state = {
     blog: this.defaultBlog,
     successModalVisible: false,
+    editorState: BraftEditor.createEditorState(null),
   }
 
   componentDidMount() {
     this.initialize()
   }
 
-  componentDidUpdate(prevProps){
-    if (prevProps.location.pathname !== this.props.location.pathname){
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
       this.initialize()
     }
   }
@@ -41,19 +40,17 @@ class EditBlog extends React.Component {
       axios.get(`/articles/${this.blogId}`)
         .then(res => {
           const blog = res.data
-          this.setState({ blog })
-          this.editor.current.setContent(blog.content)
+          this.setState({ blog, editorState: BraftEditor.createEditorState(blog.content) })
         })
     } else {
       this.setState({ blog: this.defaultBlog })
-      this.editor.current.setContent()
     }
   }
 
   handleSubmit = e => {
     e.preventDefault()
     !this.state.blog.title && (this.state.blog.title = '无题')
-    this.state.blog.content = JSON.stringify(this.state.blog.content)
+    this.state.blog.content = this.state.editorState.toHTML()
     if (this.mode !== 'add') {
       axios.put(`/articles/${this.blogId}`, this.state.blog)
         .then(res => {
@@ -84,23 +81,31 @@ class EditBlog extends React.Component {
     this.setState({ successModalVisible: false })
   }
 
+  handleChangeEditorState = editorState => {
+    this.setState({ editorState })
+  }
+
   handleRenew = () => {
     this.setState({ successModalVisible: false })
-    if (this.props.location.pathname !== '/app/blogs/add'){
+    if (this.props.location.pathname !== '/app/blogs/add') {
       this.props.history.push('/app/blogs/add')
     }
   }
 
   handleContinueEdit = () => {
     this.setState({ successModalVisible: false })
-    if (this.props.location.pathname === '/app/blogs/add'){
+    if (this.props.location.pathname === '/app/blogs/add') {
       this.props.history.push(`/app/blogs/${this.blogId}`)
     }
   }
 
+  handlePreview = () => {
+    this.props.history.push(`/app/blogs/${this.blogId}/view`)
+  }
+
   render() {
     const { type, title, tags } = this.state.blog
-    const { successModalVisible } = this.state
+    const { successModalVisible, editorState } = this.state
 
     return (
       <div className="blog-edit-page">
@@ -136,14 +141,15 @@ class EditBlog extends React.Component {
                 {tags.map((tag) => <Select.Option key={tag}>{tag}</Select.Option>)}
               </Select></div>
             <div className="do-group">
-              <Editor
-                ref={this.editor}
-                onChange={value => this.handleEdit(value, 'content')}
-                placeholder="说点什么吧"
-              />
+              <div className="editor-wrapper">
+                <BraftEditor
+                  value={editorState}
+                  onChange={this.handleChangeEditorState}
+                />
+              </div>
             </div>
             <div className="do-group">
-              <button className="do-btn">提交</button>
+              <button className="do-btn do-btn-primary">提交</button>
             </div>
           </form>
 
@@ -153,9 +159,10 @@ class EditBlog extends React.Component {
             onOk={this.handleOk}
             onCancel={this.handleReturn}
             footer={[
+              <Button key="view" type="primary" onClick={this.handlePreview}>查看</Button>,
               <Button key="again" type="primary" onClick={this.handleRenew}>再来一篇</Button>,
               <Button key="submit" onClick={this.handleContinueEdit}>
-              继续编辑
+                继续编辑
               </Button>,
               <Button key="back" onClick={this.handleReturn}>返回列表</Button>,
             ]}
