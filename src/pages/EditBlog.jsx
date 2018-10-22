@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { Select, Radio, Modal, Button } from 'antd'
 import logo from '../imgs/dodo-logo.png'
+import Editor from '../components/Editor'
 import BraftEditor from 'braft-editor'
 
 
@@ -17,7 +18,7 @@ class EditBlog extends React.Component {
   state = {
     blog: this.defaultBlog,
     successModalVisible: false,
-    editorState: BraftEditor.createEditorState(null),
+    editorState: null,
   }
 
   componentDidMount() {
@@ -142,10 +143,7 @@ class EditBlog extends React.Component {
               </Select></div>
             <div className="do-group">
               <div className="editor-wrapper">
-                <BraftEditor
-                  value={editorState}
-                  onChange={this.handleChangeEditorState}
-                />
+                <Editor value={editorState} onChange={this.handleChangeEditorState} />
               </div>
             </div>
             <div className="do-group">

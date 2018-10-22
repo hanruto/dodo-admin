@@ -1,3 +1,5 @@
+cd /project/common-admin
+
 git pull
 
 cnpm i
