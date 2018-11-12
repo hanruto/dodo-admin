@@ -1,12 +1,10 @@
 import React from 'react'
 import { Table } from 'antd'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { dateFilter } from '../util/tool'
-import ConfirmDelete from '../components/ConfirmDelete'
 
 
-export default class LeavedMessageList extends React.Component {
+export default class ViewRecordList extends React.Component {
   state = {
     blogs: [],
     selectable: false,
@@ -19,17 +17,16 @@ export default class LeavedMessageList extends React.Component {
     this.fetch()
   }
 
-  fetch = (page = 1) => {
-    axios.get('/leaved-messages', { params: { page } })
+  fetch = () => {
+    axios.get('/view-records/blog')
       .then(res => {
-        const { list, count, perPage, page } = res.data
-        list.forEach((item, index) => {
-          item.title = <Link to={`/app/blogs/${item._id}/view`}>{item.title}</Link>
+        const list = res.data
+        list.forEach((item) => {
           item.created = dateFilter(item.created)
-          item.action = <ConfirmDelete onConfirm={() => this.handleDelete(item)} />
-          item.key = index
+          item.siteName = dateFilter(item.updated)
+          item.nickname = item.info && item.info.nickname || '未设置'
         })
-        this.setState({ list, count, perPage, page })
+        this.setState({ list })
       })
   }
 
@@ -46,22 +43,22 @@ export default class LeavedMessageList extends React.Component {
   render() {
     const columns = [
       {
+        key: 'siteName',
+        dataIndex: 'siteName',
+        title: '网站',
+      }, {
         key: 'nickname',
         dataIndex: 'nickname',
-        title: '名字',
+        title: '用户名称',
+        width: 300,
       }, {
-        key: 'message',
-        dataIndex: 'message',
-        title: '留言',
-        width: 600,
+        key: 'ip',
+        dataIndex: 'ip',
+        title: 'ip',
       }, {
         key: 'created',
         dataIndex: 'created',
-        title: '发表时间',
-      }, {
-        key: 'action',
-        dataIndex: 'action',
-        title: '操作',
+        title: '访问时间',
       },
     ]
     const { list } = this.state

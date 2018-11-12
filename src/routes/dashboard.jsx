@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import StaffList from '../pages/AdminList'
 import BlogList from '../pages/BlogList'
 import LeavedMessageList from '../pages/LeavedMessageList'
+import ViewRecordList from '../pages/ViewRecordList'
 
 
 const DashboardRouter = () => (
@@ -10,6 +11,7 @@ const DashboardRouter = () => (
     <Route path="/app/admins" component={StaffList} />
     <Route path="/app/blogs" component={BlogList} exact />
     <Route path="/app/leaved-messages" component={LeavedMessageList} exact />
+    <Route path="/app/view-records" component={ViewRecordList} exact />
     <Redirect to="/app/admins" />
   </Switch>
 )
