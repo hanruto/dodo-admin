@@ -22,8 +22,7 @@ export default class ViewRecordList extends React.Component {
       .then(res => {
         const list = res.data
         list.forEach((item) => {
-          item.created = dateFilter(item.created)
-          item.siteName = dateFilter(item.updated)
+          item.created = dateFilter(item.created, true)
           item.nickname = item.info && item.info.nickname || '未设置'
         })
         this.setState({ list })
