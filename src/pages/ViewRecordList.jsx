@@ -6,7 +6,7 @@ import { dateFilter } from '../util/tool'
 
 export default class ViewRecordList extends React.Component {
   state = {
-    blogs: [],
+    list: [],
     selectable: false,
     count: 0,
     perPage: 15,
@@ -18,22 +18,15 @@ export default class ViewRecordList extends React.Component {
   }
 
   fetch = () => {
-    axios.get('/view-records/blog')
+    axios.get('/view-records/blog', { params: { limit: 40 } })
       .then(res => {
-        const list = res.data
+        const { list, count } = res.data
+
         list.forEach((item) => {
           item.created = dateFilter(item.created, true)
           item.nickname = item.info && item.info.nickname || '未设置'
         })
-        this.setState({ list })
-      })
-  }
-
-  handleDelete = item => {
-    this.setState()
-    axios.delete(`/leaved-messages/${item._id}`)
-      .then(() => {
-        this.fetch(this.state.page)
+        this.setState({ list, count })
       })
   }
 
@@ -60,10 +53,14 @@ export default class ViewRecordList extends React.Component {
         title: '访问时间',
       },
     ]
-    const { list } = this.state
+    const { list, count } = this.state
 
     return <div className="do-container">
+      <div className="do-card">
+        <span>共计 <span className="do-text-large">{count}</span></span>
+      </div>
       <Table
+        rowKey={item => item._id}
         columns={columns}
         dataSource={list}
         pagination={false}
