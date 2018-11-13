@@ -40,7 +40,7 @@
     "antd": "^3.10.0",
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.0",
-    "braft-editor": "^2.1.4",
+    "braft-editor": "^2.1.28",
     "braft-extensions": "^0.0.3",
     "compression": "^1.7.3",
     "draft-js-prism": "^1.0.6",

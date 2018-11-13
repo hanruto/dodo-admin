@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import logo from '../imgs/dodo-logo.png'
+import 'braft-editor/dist/index.css'
+import 'braft-extensions/dist/code-highlighter.css'
 
 
 export default class BlogView extends Component {
@@ -35,7 +37,7 @@ export default class BlogView extends Component {
           </div>
         </div>
         <div className="blog-view-container">
-          <h1 className="blog-view-title">{blog.title}</h1>
+          <h1 className="blog-title">{blog.title}</h1>
           <div className="blog-view-content" dangerouslySetInnerHTML={{ __html: blog.content }} />
         </div>
       </div>
