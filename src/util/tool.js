@@ -8,10 +8,10 @@ export function toTwoDigits(number){
 export function dateFilter(date, hasHour) {
   date = new Date(date)
   if (hasHour){
-    return `${date.getFullYear()}年 ${date.getMonth() + 1}月 ${date.getDate()}日 ${toTwoDigits(date.getHours())}:${toTwoDigits(date.getMinutes())}:${toTwoDigits(date.getSeconds())}`
+    return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${toTwoDigits(date.getHours())}:${toTwoDigits(date.getMinutes())}:${toTwoDigits(date.getSeconds())}`
   }
 
-  return `${date.getFullYear()}年 ${date.getMonth() + 1}月 ${date.getDate()}日`
+  return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`
 }
 
 export const hzhjNetwork = axios.create({

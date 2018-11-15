@@ -108,7 +108,7 @@ class BlogList extends React.Component {
       item.created = dateFilter(item.created)
       item.updated = dateFilter(item.updated)
       item.author && (item.author = item.author.username)
-      item.tags = item.tags.length ? item.tags.map(tag => <span className="do-tag" key={tag._id}>{tag.value}</span>) : '无'
+      item.tags = item.tags && item.tags.length ? item.tags.map(tag => <span className="do-tag" key={tag._id}>{tag.value}</span>) : '无'
       item.action = (
         <span>
           <Link to={`/app/blogs/${item._id}`}><Icon className="action" type="edit" /></Link>
