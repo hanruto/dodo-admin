@@ -5,8 +5,10 @@ import { Select, Radio, Modal, Button } from 'antd'
 import logo from '../imgs/dodo-logo.png'
 import Editor from '../components/Editor'
 import BraftEditor from 'braft-editor'
+import needLogin from '../util/needLogin'
 
 
+@needLogin
 class EditBlog extends React.Component {
   defaultBlog = {
     type: 1,

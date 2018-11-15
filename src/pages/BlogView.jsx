@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom'
 import logo from '../imgs/dodo-logo.png'
 import 'braft-editor/dist/index.css'
 import 'braft-extensions/dist/code-highlighter.css'
+import needLogin from '../util/needLogin'
 
 
-export default class BlogView extends Component {
+@needLogin
+class BlogView extends Component {
   blogId = this.props.match.params.blogId
 
   state = {
@@ -43,3 +45,5 @@ export default class BlogView extends Component {
     )
   }
 }
+
+export default BlogView

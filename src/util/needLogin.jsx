@@ -2,7 +2,6 @@ import React from 'react'
 import store from '../store'
 
 
-console.log(store)
 export default function needLogin(Component) {
   return class NeedLoginComponent extends React.Component {
     state = {
@@ -11,9 +10,10 @@ export default function needLogin(Component) {
     }
 
     componentDidMount() {
-      store.userStore.getInfo()
+      store.userStore.checkLogin()
         .then(() => {
           this.setState({ checked: true })
+
           const { userInfo } = store.userStore
           if (!userInfo) {
             this.props.history.push('/login')
@@ -25,7 +25,7 @@ export default function needLogin(Component) {
       const { checked } = this.state
       if (!checked) return null
 
-      return <Component />
+      return <Component {...this.props} />
     }
   }
 }

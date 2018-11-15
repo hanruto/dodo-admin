@@ -1,15 +1,15 @@
 import React from 'react'
 import { Route, Redirect, Switch } from 'react-router-dom'
 import LoginPage from '../pages/Login'
-import MainPage from '../pages/Layout'
+import PageRouter from './page'
 
 
 const MainRouter = () => {
   return (
     <Switch>
       <Route exact path="/login" component={LoginPage} />
-      <Route path="/app" component={MainPage} />
-      <Redirect to="/app" />
+      <Route path="/" component={PageRouter} />
+      <Redirect to="/" />
     </Switch>
   )
 }
