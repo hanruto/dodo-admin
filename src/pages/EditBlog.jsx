@@ -19,6 +19,7 @@ class EditBlog extends React.Component {
     blog: this.defaultBlog,
     successModalVisible: false,
     editorState: null,
+    tagSelects: [],
   }
 
   componentDidMount() {
@@ -35,12 +36,11 @@ class EditBlog extends React.Component {
     this.blogId = this.props.match.params.blogId
     this.mode = this.blogId === 'add' ? 'add' : 'update'
     axios.get('/articles/tags')
-      .then(res => this.setState({ children: res.data }))
+      .then(tagSelects => this.setState({ tagSelects }))
 
     if (this.mode !== 'add') {
       axios.get(`/articles/${this.blogId}`)
-        .then(res => {
-          const blog = res.data
+        .then(blog => {
           this.setState({ blog, editorState: BraftEditor.createEditorState(blog.content) })
         })
     } else {
@@ -54,14 +54,12 @@ class EditBlog extends React.Component {
     this.state.blog.content = this.state.editorState.toHTML()
     if (this.mode !== 'add') {
       axios.put(`/articles/${this.blogId}`, this.state.blog)
-        .then(res => {
-          const blog = res.data
+        .then(blog => {
           this.setState({ blog, successModalVisible: true })
         })
     } else {
       axios.post('/articles', this.state.blog)
-        .then(res => {
-          const blog = res.data
+        .then(blog => {
           this.blogId = blog._id
           this.setState({ blog, successModalVisible: true })
         })
@@ -71,6 +69,22 @@ class EditBlog extends React.Component {
   handleEdit = (value, attr) => {
     const { blog } = this.state
     blog[attr] = value
+    this.setState({ blog })
+  }
+
+  handleChangeTags = (value) => {
+    console.log(value)
+  }
+
+  handleSelectTag = tagId => {
+    const { blog } = this.state
+    blog.tags.push({ _id: tagId })
+    this.setState({ blog })
+  }
+
+  handleDeSelectTag = tagId => {
+    const { blog } = this.state
+    blog.tags = blog.tags.filter(tag => tag.id !== tagId)
     this.setState({ blog })
   }
 
@@ -108,6 +122,8 @@ class EditBlog extends React.Component {
     const { type, title, tags } = this.state.blog
     const { successModalVisible, editorState } = this.state
 
+    const { tagSelects } = this.state
+
     return (
       <div className="blog-edit-page">
         <div className="blog-view-head">
@@ -137,9 +153,11 @@ class EditBlog extends React.Component {
                 value={tags}
                 style={{ width: '100%' }}
                 tokenSeparators={[',']}
-                onChange={tags => this.handleEdit(tags, 'tags')}
+                onChange={this.handleChangeTags}
+                onSelect={this.handleSelectTag}
+                onDeselect={this.handleDeSelectTag}
               >
-                {tags.map((tag) => <Select.Option key={tag}>{tag}</Select.Option>)}
+                {tagSelects.map((tag) => <Select.Option key={tag} value={tag._id}>{tag.value}</Select.Option>)}
               </Select></div>
             <div className="do-group">
               <div className="editor-wrapper">
@@ -169,7 +187,6 @@ class EditBlog extends React.Component {
           </Modal>
         </div>
       </div>
-
     )
   }
 }

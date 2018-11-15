@@ -11,9 +11,9 @@ export default class AdminList extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     axios.get('/admins')
-      .then(res => this.setState({ auths: res.data }))
+      .then(auths => this.setState({ auths }))
   }
 
   render() {
@@ -34,12 +34,8 @@ export default class AdminList extends React.Component {
     return (
       <div className="do-container">
         <Table
-          dataSource={this.state.auths.map((data, index) => {
-            data.key = index
-
-            // data.action = <span><Icon type="delete" /><Icon type="edit" /></span>
-            return data
-          })}
+          rowKey={item => item._id}
+          dataSource={this.state.auths}
           style={{ minWidth: 500 }}
           columns={columns}
           pagination={false}

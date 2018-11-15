@@ -6,6 +6,27 @@ import { dateFilter } from '../util/tool'
 import ConfirmDelete from '../components/ConfirmDelete'
 
 
+const columns = [
+  {
+    key: 'nickname',
+    dataIndex: 'nickname',
+    title: '名字',
+  }, {
+    key: 'message',
+    dataIndex: 'message',
+    title: '留言',
+    width: 600,
+  }, {
+    key: 'created',
+    dataIndex: 'created',
+    title: '发表时间',
+  }, {
+    key: 'action',
+    dataIndex: 'action',
+    title: '操作',
+  },
+]
+
 export default class LeavedMessageList extends React.Component {
   state = {
     blogs: [],
@@ -21,8 +42,8 @@ export default class LeavedMessageList extends React.Component {
 
   fetch = (page = 1) => {
     axios.get('/leaved-messages', { params: { page } })
-      .then(res => {
-        const { list, count, perPage, page } = res.data
+      .then(data => {
+        const { list, count, perPage, page } = data
         list.forEach((item, index) => {
           item.title = <Link to={`/app/blogs/${item._id}/view`}>{item.title}</Link>
           item.created = dateFilter(item.created)
@@ -44,26 +65,6 @@ export default class LeavedMessageList extends React.Component {
   handleTogglePage = page => this.fetch(page)
 
   render() {
-    const columns = [
-      {
-        key: 'nickname',
-        dataIndex: 'nickname',
-        title: '名字',
-      }, {
-        key: 'message',
-        dataIndex: 'message',
-        title: '留言',
-        width: 600,
-      }, {
-        key: 'created',
-        dataIndex: 'created',
-        title: '发表时间',
-      }, {
-        key: 'action',
-        dataIndex: 'action',
-        title: '操作',
-      },
-    ]
     const { list } = this.state
 
     return <div className="do-container">

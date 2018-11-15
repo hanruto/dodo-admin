@@ -15,8 +15,7 @@ export default class BlogView extends Component {
 
   componentDidMount() {
     axios.get(`/articles/${this.blogId}`)
-      .then(res => {
-        const blog = res.data
+      .then(blog => {
         this.setState({ blog })
       })
   }

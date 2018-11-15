@@ -2,7 +2,8 @@ import React from 'react'
 import { Icon } from 'antd'
 import DashboardRouter from '../routes/dashboard'
 import { Menu } from 'antd'
-// import logo from '../imgs/dodo-logo.png'
+import { withRouter } from 'react-router-dom'
+import needLogin from '../util/needLogin'
 
 
 const menus = [
@@ -13,6 +14,7 @@ const menus = [
   { to: '/login', icon: 'logout', text: '登出' },
 ]
 
+@withRouter
 class SiderBar extends React.Component {
   handleToggle = menu => {
     this.props.history.push(menu.key)
@@ -23,9 +25,6 @@ class SiderBar extends React.Component {
 
     return (
       <div className="main-nav">
-        {/* <div className="main-nav-logo">
-          <img src={logo} alt="" />  Admin
-        </div> */}
         <Menu
           mode="inline"
           selectable={false}
@@ -46,18 +45,30 @@ class SiderBar extends React.Component {
     )
   }
 }
+class Content extends React.Component {
+  componentDidMount(){
+    console.log(this.props)
+  }
 
-const Content = () => (
-  <div className="main-content">
-    <DashboardRouter />
-  </div>
-)
+  render(){
+    return (
+      <div className="main-content">
+        <DashboardRouter />
+      </div>
+    )
+  }
+}
 
-const Layout = (props) => (
-  <div className="main-view">
-    <SiderBar {...props} />
-    <Content {...props} />
-  </div>
-)
+@needLogin
+class Layout extends React.Component{
+  render() {
+    return (
+      <div className="main-view">
+        <SiderBar />
+        <Content />
+      </div>
+    )
+  }
+}
 
 export default Layout

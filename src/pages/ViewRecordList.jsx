@@ -4,6 +4,27 @@ import axios from 'axios'
 import { dateFilter } from '../util/tool'
 
 
+const columns = [
+  {
+    key: 'siteName',
+    dataIndex: 'siteName',
+    title: '网站',
+  }, {
+    key: 'nickname',
+    dataIndex: 'nickname',
+    title: '用户名称',
+    width: 300,
+  }, {
+    key: 'ip',
+    dataIndex: 'ip',
+    title: 'ip',
+  }, {
+    key: 'created',
+    dataIndex: 'created',
+    title: '访问时间',
+  },
+]
+
 export default class ViewRecordList extends React.Component {
   state = {
     list: [],
@@ -19,9 +40,8 @@ export default class ViewRecordList extends React.Component {
 
   fetch = () => {
     axios.get('/view-records/blog', { params: { limit: 40 } })
-      .then(res => {
-        const { list, count } = res.data
-
+      .then(data => {
+        const { list, count } = data
         list.forEach((item) => {
           item.created = dateFilter(item.created, true)
           item.nickname = item.info && item.info.nickname || '未设置'
@@ -33,26 +53,6 @@ export default class ViewRecordList extends React.Component {
   handleTogglePage = page => this.fetch(page)
 
   render() {
-    const columns = [
-      {
-        key: 'siteName',
-        dataIndex: 'siteName',
-        title: '网站',
-      }, {
-        key: 'nickname',
-        dataIndex: 'nickname',
-        title: '用户名称',
-        width: 300,
-      }, {
-        key: 'ip',
-        dataIndex: 'ip',
-        title: 'ip',
-      }, {
-        key: 'created',
-        dataIndex: 'created',
-        title: '访问时间',
-      },
-    ]
     const { list, count } = this.state
 
     return <div className="do-container">

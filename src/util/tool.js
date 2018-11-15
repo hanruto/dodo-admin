@@ -19,4 +19,3 @@ export const hzhjNetwork = axios.create({
   headers: { 'vf': 'xiaohangogogo' },
   withCredentials: false,
 })
-
