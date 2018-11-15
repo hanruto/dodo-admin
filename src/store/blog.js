@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx'
 import axios from '../config/axios'
 import Base from './base'
+import qs from 'qs'
 
 
 export default class Store extends Base {
@@ -9,25 +10,24 @@ export default class Store extends Base {
     page: 0,  // 现在一共有0页，不是目前在第几页
     perPage: 10,
     noMore: false,
+    count: 0,
   }
 
   @observable tags = []
   @observable currentBlog = null
 
   @action
-  list = (currnetPage) => {
-    if (this.blogs.list.noMore) {
-      return false
-    }
-    this.blogs.page = currnetPage || Number(this.blogs.page) + 1
-    const { perPage, page } = this.blogs
-
-    return axios.get('/articles', { params: { perPage, page } })
+  list = (params) => {
+    return axios.get('/articles',{
+      params: { ...{ perPage: this.blogs.perPage }, ...params },
+      paramsSerializer: params => {
+        return qs.stringify(params, { arrayFormat: 'repeat' })
+      },
+    })
       .then(blogs => {
-        this.blogs.list = currnetPage ? blogs.list : this.blogs.list.concat(blogs.list)
+        this.blogs.list = blogs.list
         this.blogs.page = blogs.page
         this.blogs.count = blogs.count
-        this.blogs.noMore = this.blogs.list.length >= this.blogs.count
 
         return this.blogs
       })
@@ -36,11 +36,13 @@ export default class Store extends Base {
   @action
   read = id => {
     return axios.get(`/articles/${id}`)
-      .then(blog => {
-        this.currentBlog = blog
+      .then(blog => this.currentBlog = blog)
+  }
 
-        return Promise.resolve(blog)
-      })
+  @action
+  delete = id => {
+    return axios.delete(`/articles/${id}`)
+      .then(() => this.list())
   }
 
   @action
@@ -48,20 +50,18 @@ export default class Store extends Base {
     const blogId = this.currentBlog._id
 
     return axios.put(`/articles/${blogId}/comment`, comment)
-      .then(blog => {
-        this.currentBlog = blog
-
-        return Promise.resolve(blog)
-      })
+      .then(blog => this.currentBlog = blog)
   }
 
   @action
   getTags = () => {
     return axios.get('/articles/tags')
-      .then(tags => {
-        this.tags = tags
+      .then(tags => this.tags = tags)
+  }
 
-        return this.tags
-      })
+  @action
+  deleteTag = id => {
+    return axios.delete(`/articles/tags/${id}`)
+      .then(() => this.getTags())
   }
 }

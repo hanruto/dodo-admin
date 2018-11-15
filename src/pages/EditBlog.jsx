@@ -43,6 +43,7 @@ class EditBlog extends React.Component {
     if (this.mode !== 'add') {
       axios.get(`/articles/${this.blogId}`)
         .then(blog => {
+          blog.tags = blog.tags ? blog.tags.map(item => item.value) : []
           this.setState({ blog, editorState: BraftEditor.createEditorState(blog.content) })
         })
     } else {
@@ -52,18 +53,22 @@ class EditBlog extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    !this.state.blog.title && (this.state.blog.title = '无题')
-    this.state.blog.content = this.state.editorState.toHTML()
+    const { tagSelects, editorState, blog: currentBlog } = this.state
+
+    const blog = { ...currentBlog }
+    blog.content = editorState.toHTML()
+    blog.tags = blog.tags.map(tag => (tagSelects.find(item => item.value === tag) || { value: tag }))
+
     if (this.mode !== 'add') {
-      axios.put(`/articles/${this.blogId}`, this.state.blog)
-        .then(blog => {
-          this.setState({ blog, successModalVisible: true })
+      axios.put(`/articles/${this.blogId}`, blog)
+        .then(() => {
+          this.setState({ successModalVisible: true })
         })
     } else {
-      axios.post('/articles', this.state.blog)
+      axios.post('/articles', blog)
         .then(blog => {
           this.blogId = blog._id
-          this.setState({ blog, successModalVisible: true })
+          this.setState({ successModalVisible: true })
         })
     }
   }
@@ -76,17 +81,8 @@ class EditBlog extends React.Component {
 
   handleChangeTags = (value) => {
     console.log(value)
-  }
-
-  handleSelectTag = tagId => {
     const { blog } = this.state
-    blog.tags.push({ _id: tagId })
-    this.setState({ blog })
-  }
-
-  handleDeSelectTag = tagId => {
-    const { blog } = this.state
-    blog.tags = blog.tags.filter(tag => tag.id !== tagId)
+    blog.tags = value
     this.setState({ blog })
   }
 
@@ -156,10 +152,8 @@ class EditBlog extends React.Component {
                 style={{ width: '100%' }}
                 tokenSeparators={[',']}
                 onChange={this.handleChangeTags}
-                onSelect={this.handleSelectTag}
-                onDeselect={this.handleDeSelectTag}
               >
-                {tagSelects.map((tag) => <Select.Option key={tag} value={tag._id}>{tag.value}</Select.Option>)}
+                {tagSelects.map((tag) => <Select.Option key={tag._id} value={tag.value}>{tag.value}</Select.Option>)}
               </Select></div>
             <div className="do-group">
               <div className="editor-wrapper">
@@ -167,7 +161,7 @@ class EditBlog extends React.Component {
               </div>
             </div>
             <div className="do-group">
-              <button className="do-btn do-btn-primary">提交</button>
+              <Button type="primary" style={{ width: 120 }} onClick={this.handleSubmit}>提交</Button>
             </div>
           </form>
 
