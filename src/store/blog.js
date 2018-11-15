@@ -7,8 +7,8 @@ import qs from 'qs'
 export default class Store extends Base {
   @observable blogs = {
     list: [],
-    page: 0,  // 现在一共有0页，不是目前在第几页
-    perPage: 10,
+    page: 0,
+    perPage: 15,
     noMore: false,
     count: 0,
   }

@@ -158,7 +158,7 @@ class BlogList extends React.Component {
         rowKey={(blog, index) => blog._id + index}
         columns={columns}
         dataSource={this.blogs}
-        pagination={{ current: Number(page), total: count, pageSize: perPage }}
+        pagination={count > perPage ? { current: Number(page), total: count, pageSize: perPage } : false}
         onChange={this.handleTogglePage}
       />
 
