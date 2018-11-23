@@ -51,19 +51,17 @@ class EditBlog extends React.Component {
     }
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e, isDraft) => {
     e.preventDefault()
     const { tagSelects, editorState, blog: currentBlog } = this.state
 
     const blog = { ...currentBlog }
     blog.content = editorState.toHTML()
     blog.tags = blog.tags.map(tag => (tagSelects.find(item => item.value === tag) || { value: tag }))
-
+    blog.draft = !!isDraft
     if (this.mode !== 'add') {
       axios.put(`/articles/${this.blogId}`, blog)
-        .then(() => {
-          this.setState({ successModalVisible: true })
-        })
+        .then(() => this.setState({ successModalVisible: true }))
     } else {
       axios.post('/articles', blog)
         .then(blog => {
@@ -162,6 +160,7 @@ class EditBlog extends React.Component {
             </div>
             <div className="do-group">
               <Button type="primary" style={{ width: 120 }} onClick={this.handleSubmit}>提交</Button>
+              <Button onClick={e => this.handleSubmit(e, true)} style={{ width: 120, marginLeft: 10 }}>存为草稿</Button>
             </div>
           </form>
 
