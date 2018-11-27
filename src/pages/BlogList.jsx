@@ -100,6 +100,10 @@ class BlogList extends React.Component {
 
   handleTogglePage = pagination => this.fetch({ page: pagination.current })
 
+  handleReStore = () => {
+    this.props.history.push('/app/blogs/restore')
+  }
+
   get blogs() {
     const list = toJS(this.props.blogStore.blogs.list) || []
 
@@ -126,7 +130,7 @@ class BlogList extends React.Component {
 
     return <div className="do-container">
       <div className="blog-list-head">
-        <span>
+        <span className="blog-tags">
           <span>标签：</span>
           {tags.length
             ? <React.Fragment>
@@ -150,8 +154,10 @@ class BlogList extends React.Component {
           }
 
         </span>
-
-        <Button type="primary" onClick={this.handleAdd}>写文章</Button>
+        <div className="blog-btns">
+          <Button type="primary" onClick={this.handleAdd}>写文章</Button>
+          <Button onClick={this.handleReStore}>恢复编辑</Button>
+        </div>
       </div>
       <Table
         className="blog-list-table"
@@ -161,7 +167,6 @@ class BlogList extends React.Component {
         pagination={count > perPage ? { current: Number(page), total: count, pageSize: perPage } : false}
         onChange={this.handleTogglePage}
       />
-
     </div>
   }
 }

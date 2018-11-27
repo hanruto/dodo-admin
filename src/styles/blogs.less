@@ -25,17 +25,17 @@
     .dropdown-handler span,
     .dropdown-handler i,
     .control-item.button,
-    .control-item.button i:before{
+    .control-item.button i:before {
       height: 30px;
       line-height: 30px;
       min-width: 30px;
       margin: 0;
       padding: 0;
-      
     }
     .text-color-dropdown .dropdown-handler,
     .link-editor-dropdown .dropdown-handler,
-    .bf-emoji-dropdown .dropdown-handler, {
+    .bf-emoji-dropdown .dropdown-handler,
+      {
       padding-left: 0;
     }
     .dropdown-handler {
@@ -58,11 +58,24 @@
   color: rgb(51, 153, 255);
 }
 
-.blog-list-head  {
+.blog-list-head {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  .blog-tags {
+    width: calc(100% - 200px);
+    .ant-tag {
+      margin-bottom: 5px;
+    }
+  }
+  .blog-btns {
+    width: 200px;
+    text-align: right;
+    button {
+      margin-left: 10px;
+    }
+  }
 }
+
 .blog-view-head {
   display: flex;
   align-items: center;
@@ -83,41 +96,38 @@
   font-size: 14px;
   color: #444;
   line-height: 30px;
-
   .bf-content * {
     line-height: 1.6em;
     margin-bottom: 0.5em;
   }
-
   p {
     line-height: 1.6em;
     margin-bottom: 0.5em;
     min-height: 1.6em;
   }
-
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-weight: normal;
     margin-bottom: 0.5em;
     line-height: 1.6em;
     margin-top: 0;
   }
-
   h1 {
     font-size: 2.2em;
   }
-
   h2 {
     font-size: 1.8em;
   }
-
   h3 {
     font-size: 1.5em;
   }
-
   h4 {
     font-size: 1.2em;
   }
-
   pre {
     max-width: 100%;
     max-height: 100%;

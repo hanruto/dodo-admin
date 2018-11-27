@@ -30,9 +30,9 @@ export default class Editor extends React.Component {
       <BraftEditor
         value={value}
         onChange={onChange}
-        media={{
-          uploadFn: this.handleUploadImage,
-        }}
+        textBackgroundColor={false}
+        media={{ uploadFn: this.handleUploadImage }}
+        onSave={this.handleSaveInLocal}
       />
     )
   }

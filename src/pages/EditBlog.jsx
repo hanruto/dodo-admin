@@ -26,6 +26,7 @@ class EditBlog extends React.Component {
 
   componentDidMount() {
     this.initialize()
+    this.initListener()
   }
 
   componentDidUpdate(prevProps) {
@@ -34,20 +35,35 @@ class EditBlog extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.handleSaveInLocal()
+    clearInterval(this.saveTimer)
+  }
+
+  initListener = () => {
+    this.saveTimer = setInterval(this.handleSaveInLocal, 10000)
+  }
+
   initialize = () => {
     this.blogId = this.props.match.params.blogId
-    this.mode = this.blogId === 'add' ? 'add' : 'update'
+    this.mode = ['add', 'restore'].includes(this.blogId) ? this.blogId : 'update'
+
     axios.get('/articles/tags')
       .then(tagSelects => this.setState({ tagSelects }))
 
-    if (this.mode !== 'add') {
+    if (this.mode === 'add') {
+      this.setState({ blog: this.defaultBlog })
+    } else if (this.mode === 'restore') {
+      const blog = JSON.parse(localStorage.getItem('current-edit-blog'))
+      const editorState = BraftEditor.createEditorState(blog.content)
+      this.blogId = blog._id
+      this.setState({ blog, editorState })
+    } else {
       axios.get(`/articles/${this.blogId}`)
         .then(blog => {
           blog.tags = blog.tags ? blog.tags.map(item => item.value) : []
           this.setState({ blog, editorState: BraftEditor.createEditorState(blog.content) })
         })
-    } else {
-      this.setState({ blog: this.defaultBlog })
     }
   }
 
@@ -78,7 +94,6 @@ class EditBlog extends React.Component {
   }
 
   handleChangeTags = (value) => {
-    console.log(value)
     const { blog } = this.state
     blog.tags = value
     this.setState({ blog })
@@ -114,10 +129,15 @@ class EditBlog extends React.Component {
     this.props.history.push(`/app/blogs/${this.blogId}/view`)
   }
 
+  handleSaveInLocal = () => {
+    const blog = this.state.blog
+    blog.content = this.state.editorState.toHTML()
+    localStorage.setItem('current-edit-blog', JSON.stringify(blog))
+  }
+
   render() {
     const { type, title, tags } = this.state.blog
     const { successModalVisible, editorState } = this.state
-
     const { tagSelects } = this.state
 
     return (
@@ -160,7 +180,7 @@ class EditBlog extends React.Component {
             </div>
             <div className="do-group">
               <Button type="primary" style={{ width: 120 }} onClick={this.handleSubmit}>提交</Button>
-              <Button onClick={e => this.handleSubmit(e, true)} style={{ width: 120, marginLeft: 10 }}>存为草稿</Button>
+              <Button onClick={() => this.handleSaveInLocal()} style={{ width: 120, marginLeft: 10 }}>保存在本地</Button>
             </div>
           </form>
 
