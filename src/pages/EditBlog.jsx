@@ -175,9 +175,7 @@ class EditBlog extends React.Component {
                 {tagSelects.map((tag) => <Select.Option key={tag._id} value={tag.value}>{tag.value}</Select.Option>)}
               </Select></div>
             <div className="do-group">
-              <div className="editor-wrapper">
-                <Editor value={editorState} onChange={this.handleChangeEditorState} />
-              </div>
+              <Editor value={editorState} onChange={this.handleChangeEditorState} />
             </div>
             <div className="do-group">
               <Button type="primary" style={{ width: 120 }} onClick={this.handleSubmit}>提交</Button>
