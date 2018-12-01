@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Icon, Tag, Button } from 'antd'
 import { Link } from 'react-router-dom'
-import { dateFilter } from '../util/tool'
+import { dateFormater } from '../util/tool'
 import ConfirmDelete from '../components/ConfirmDelete'
 import { inject, observer } from 'mobx-react'
 import { toJS } from 'mobx'
@@ -109,8 +109,8 @@ class BlogList extends React.Component {
 
     return list.map(item => {
       item.title = <Link to={`/app/blogs/${item._id}/view`}>{item.title}</Link>
-      item.created = dateFilter(item.created)
-      item.updated = dateFilter(item.updated)
+      item.created = dateFormater(item.created)
+      item.updated = dateFormater(item.updated)
       item.author && (item.author = item.author.username)
       item.tags = item.tags && item.tags.length ? item.tags.map(tag => <span className="do-tag" key={tag._id}>{tag.value}</span>) : '无'
       item.action = (

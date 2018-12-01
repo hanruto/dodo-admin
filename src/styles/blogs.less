@@ -52,10 +52,15 @@
   text-transform: capitalize;
   font-size: 34px;
   font-weight: 100;
-  margin-bottom: 10px;
-  margin-top: 0px;
+  margin-bottom: 20px;
+  margin-top: 2opx;
   line-height: 1.2em;
   color: rgb(51, 153, 255);
+}
+
+.blog-meta {
+  margin-top: 10px;
+  margin-bottom: 40px;
 }
 
 .blog-list-head {
@@ -90,13 +95,15 @@
   }
 }
 
-.editor-wrapper,
+.DraftEditor-editorContainer{
+  width: 720px;
+  margin: 0 auto;
+}
 .blog-view-content,
-.DraftEditor-editorContainer {
+.DraftEditor-editorContainer{
   font-size: 14px;
   color: #444;
-  line-height: 30px;
-  .bf-content * {
+  span, div, pre {
     line-height: 1.6em;
     margin-bottom: 0.5em;
   }
@@ -112,9 +119,12 @@
   h5,
   h6 {
     font-weight: normal;
-    margin-bottom: 0.5em;
-    line-height: 1.6em;
-    margin-top: 0;
+    line-height: 1em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    div, span {
+      line-height: 1em;
+    }
   }
   h1 {
     font-size: 2.2em;
@@ -123,11 +133,18 @@
     font-size: 1.8em;
   }
   h3 {
-    font-size: 1.5em;
+    font-size: 1.4em;
+    padding-left: 0.4em;
+    border-left: 4px solid @primary-color;
   }
   h4 {
-    font-size: 1.2em;
+    font-size: 1.1em;
+    line-height: 1em;
+    font-weight: bold;
+    margin-bottom: 0.3em;
   }
+  h1,
+  h2 {}
   pre {
     max-width: 100%;
     max-height: 100%;

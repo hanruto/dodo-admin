@@ -54,7 +54,8 @@ class EditBlog extends React.Component {
     if (this.mode === 'add') {
       this.setState({ blog: this.defaultBlog })
     } else if (this.mode === 'restore') {
-      const blog = JSON.parse(localStorage.getItem('current-edit-blog'))
+      const blogStr = localStorage.getItem('current-edit-blog')
+      const blog = blogStr ? JSON.parse(blogStr) : {}
       const editorState = BraftEditor.createEditorState(blog.content)
       this.blogId = blog._id
       this.setState({ blog, editorState })
