@@ -18,7 +18,7 @@ export function getDay(date, split) {
 export function getHour(date) {
   date = new Date(date)
 
-  return `${date.getHours()}:${formatTimeNumber(date.getMinutes())}`
+  return `${formatTimeNumber(date.getHours())}:${formatTimeNumber(date.getMinutes())}`
 }
 
 export function dateFormater(originDate, isShowHour, opt = {}) {

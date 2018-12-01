@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table } from 'antd'
 import axios from 'axios'
-import { dateFilter } from '../util/tool'
+import { dateFormater } from '../util/tool'
 
 
 const columns = [
@@ -43,7 +43,7 @@ export default class ViewRecordList extends React.Component {
       .then(data => {
         const { list, count } = data
         list.forEach((item) => {
-          item.created = dateFilter(item.created, true)
+          item.created = dateFormater(item.created, true)
           item.nickname = item.info && item.info.nickname || '未设置'
         })
         this.setState({ list, count })
