@@ -1,6 +1,5 @@
 import React from 'react'
 import { Table } from 'antd'
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { dateFormater } from '../util/tool'
 import ConfirmDelete from '../components/ConfirmDelete'
@@ -45,7 +44,7 @@ export default class LeavedMessageList extends React.Component {
       .then(data => {
         const { list, count, perPage, page } = data
         list.forEach((item, index) => {
-          item.title = <Link to={`/app/blogs/${item._id}/view`}>{item.title}</Link>
+          item.message = item.message.replace(/<.*?>/g, '')
           item.created = dateFormater(item.created, true)
           item.action = <ConfirmDelete onConfirm={() => this.handleDelete(item)} />
           item.key = index
