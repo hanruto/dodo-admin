@@ -4,16 +4,16 @@
 }
 
 .main-nav {
-  width: @nav-width;
+  width: $nav-width;
   position: fixed;
   height: 100vh;
-  background-color: @sidebar-bg-color;
+  background-color: $sidebar-bg-color;
   z-index: 10;
 
   .nav-menu {
     box-sizing: border-box;
-    background-color: @sidebar-bg-color;
-    width: @nav-width;
+    background-color: $sidebar-bg-color;
+    width: $nav-width;
     color: #a3a3a3;
     margin: 0 !important;
     &:hover {
@@ -23,7 +23,7 @@
   .nav-menu {
     &.active {
       color: #fff;
-      background-color: @primary-color;
+      background-color: $primary-color;
       transition: all ease-in 0.3s;
     }
   }
@@ -53,7 +53,7 @@
 }
 
 .main-content {
-  margin-left: @nav-width;
+  margin-left: $nav-width;
   background-color: #f3f3f3;
   padding-bottom: 40px;
   @media screen and(max-width: 762px) {
@@ -64,5 +64,5 @@
 }
 
 .collapsed+.main-content {
-  margin-left: @nav-collapsed-width;
+  margin-left: $nav-collapsed-width;
 }

@@ -12,8 +12,8 @@ img{
 }
 
 .ant-select-selection{
-    border-radius: @input-radius;
-    padding-left: @input-radius / 2;
+    border-radius: $input-radius;
+    padding-left: $input-radius / 2;
 }
 
 a:hover {

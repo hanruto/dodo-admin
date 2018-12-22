@@ -1,0 +1,16 @@
+$primary-color: #39e;
+$active-color: #aaa;
+$light-primary-color: #3af;
+
+$sidebar-bg-color: #333;
+$active-nav-color: $primary-color;
+$nav-width: 200px;
+$nav-collapsed-width: 52px;
+
+$input-height: 32px;
+$input-radius: $input-height / 2;
+
+@mixin clearfix{
+    overflow:auto;
+    height:1%;
+}

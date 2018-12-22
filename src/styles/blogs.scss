@@ -1,4 +1,4 @@
-@import './blog-reset.less';
+@import './blog-reset.scss';
 
 .blog-list-table {
   margin-top: 20px;
@@ -103,6 +103,9 @@
 }
 
 .blog-view-content,
-.bf-container .DraftEditor-editorContainer {
-  .blog-reset;
+.bf-container .DraftEditor-editorContainer div[data-contents=true]{
+  @include blog-reset;
+}
+.bf-container .public-DraftEditor-content {
+  padding: 5px 15px;
 }

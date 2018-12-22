@@ -7,8 +7,8 @@ import store from './store'
 // 引入样式
 import 'antd/dist/antd.css'
 import 'draft-js/dist/Draft.css'
-import './styles/index.less'
 import 'braft-editor/dist/index.css'
+import './styles/index.scss'
 
 // 引入 routers 和reducers
 import MainRoute from './routes'

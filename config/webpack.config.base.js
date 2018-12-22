@@ -15,21 +15,11 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [{
-          loader: 'style-loader',
-          options: { sourceMap: true },
-        }, 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.less$/,
-        use: ['style-loader', 'css-loader',
-          {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true,
-              sourceMap: true,
-            },
-          }],
+        test: /\.scss$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(js|jsx)$/,
