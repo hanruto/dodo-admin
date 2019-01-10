@@ -32,6 +32,7 @@ export default class ViewRecordList extends React.Component {
     count: 0,
     perPage: 15,
     page: 1,
+    dayCount: 0,
   }
 
   componentDidMount() {
@@ -39,25 +40,28 @@ export default class ViewRecordList extends React.Component {
   }
 
   fetch = () => {
-    axios.get('/view-records/blog', { params: { limit: 40 } })
+    axios.get('/view-records', { params: { limit: 40 } })
       .then(data => {
-        const { list, count } = data
+        const { list, count, dayCount } = data
         list.forEach((item) => {
           item.created = dateFormater(item.created, true)
           item.nickname = item.info && item.info.nickname || '未设置'
         })
-        this.setState({ list, count })
+        this.setState({ list, count, dayCount })
       })
   }
 
   handleTogglePage = page => this.fetch(page)
 
   render() {
-    const { list, count } = this.state
+    const { list, count, dayCount } = this.state
 
     return <div className="do-container">
       <div className="do-card">
-        <span>共计 <span className="do-text-large">{count}</span></span>
+        <span>总计 <span className="do-text-large">{count}</span> 次</span>
+      </div>
+      <div className="do-card">
+        <span>今日 <span className="do-text-large">{dayCount}</span> 次</span>
       </div>
       <Table
         rowKey={item => item._id}

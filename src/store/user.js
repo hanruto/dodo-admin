@@ -5,6 +5,7 @@ import Base from './base'
 
 export default class Store extends Base {
   @observable userInfo = {}
+  @observable viewRecord = {}
 
   @action
   checkLogin = () => {
