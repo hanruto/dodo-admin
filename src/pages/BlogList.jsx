@@ -106,13 +106,22 @@ class BlogList extends React.Component {
 
   get blogs() {
     const list = toJS(this.props.blogStore.blogs.list) || []
+    const { tags } = this.props.blogStore
 
     return list.map(item => {
       item.title = <Link to={`/app/blogs/${item._id}/view`}>{item.title}</Link>
       item.created = dateFormater(item.created)
       item.updated = dateFormater(item.updated)
       item.author && (item.author = item.author.username)
-      item.tags = item.tags && item.tags.length ? item.tags.map(tag => <span className="do-tag" key={tag._id}>{tag.value}</span>) : '无'
+      item.tags = item.tags && item.tags.length
+        ? item.tags.map(tagId => {
+          const findTag = tags.find(tag => tag._id === tagId)
+          const tagText = findTag && findTag.value
+          if (!tagText) return null
+
+          return <span className="do-tag" key={tagId}>{tagText}</span>
+        })
+        : '无'
       item.action = (
         <span>
           <Link to={`/app/blogs/${item._id}`}><Icon className="action" type="edit" /></Link>
