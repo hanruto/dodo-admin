@@ -13,13 +13,14 @@
   pre,
   ul,
   ol,
-  p, 
+  p,
   code,
   blockquote {
     font-weight: normal;
     line-height: 1.5;
     margin: 0.5em 0;
-    div, span {
+    div,
+    span {
       line-height: inherit;
       margin: 0;
     }
@@ -70,10 +71,17 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    white-space: pre;
+    code {
+      white-space: nowrap;
+      > div {
+        white-space: nowrap;
+      }
+    }
   }
+
   blockquote {
+    overflow-x: auto;
     margin: 0 0 10px;
     padding: 15px 20px;
     background-color: #f1f2f3;

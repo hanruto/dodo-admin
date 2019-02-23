@@ -1,24 +1,22 @@
 import React from 'react'
 import store from '../store'
 
-
 export default function needLogin(Component) {
   return class NeedLoginComponent extends React.Component {
     state = {
       checked: false,
-      withoutLayout: false,
+      withoutLayout: false
     }
 
     componentDidMount() {
-      store.userStore.checkLogin()
-        .then(() => {
-          this.setState({ checked: true })
+      store.userStore.checkLogin().then(() => {
+        this.setState({ checked: true })
 
-          const { userInfo } = store.userStore
-          if (!userInfo) {
-            this.props.history.push('/login')
-          }
-        })
+        const { userInfo } = store.userStore
+        if (!userInfo) {
+          this.props.history.push('/login')
+        }
+      })
     }
 
     render() {

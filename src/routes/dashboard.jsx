@@ -5,7 +5,6 @@ import BlogList from '../pages/BlogList'
 import LeavedMessageList from '../pages/LeavedMessageList'
 import ViewRecordList from '../pages/ViewRecordList'
 
-
 const DashboardRouter = () => (
   <Switch>
     <Route path="/app/admins" component={StaffList} />
