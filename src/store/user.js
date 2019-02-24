@@ -5,6 +5,7 @@ import Base from './base'
 export default class Store extends Base {
   @observable userInfo = {}
   @observable viewRecord = {}
+  @observable userList = {}
 
   @action
   checkLogin = () => {
@@ -21,5 +22,15 @@ export default class Store extends Base {
   @action
   getViewRecords = () => {
     return axios.get('/view-records').then(data => (this.viewRecord = data))
+  }
+
+  @action
+  getUsers = params => {
+    return axios.get('/users', { params }).then(data => (this.userList = data))
+  }
+
+  @action
+  deleteUser = id => {
+    return axios.delete(`/users/${id}`).then(this.getUsers)
   }
 }
