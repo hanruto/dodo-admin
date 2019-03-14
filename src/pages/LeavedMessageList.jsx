@@ -14,13 +14,13 @@ const columns = [
     key: 'blog',
     dataIndex: 'blog',
     title: '博客标题',
-    width: 300
+    width: 200
   },
   {
     key: 'message',
     dataIndex: 'message',
     title: '留言',
-    width: 500
+    width: 400
   },
   {
     key: 'created',

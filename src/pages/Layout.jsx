@@ -56,6 +56,7 @@ class SiderBar extends React.Component {
     )
   }
 }
+
 class Content extends React.Component {
   render() {
     return (
