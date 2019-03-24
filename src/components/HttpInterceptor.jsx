@@ -4,7 +4,6 @@ import { Redirect } from 'react-router-dom'
 import { message } from 'antd'
 import { baseApiUrl } from '../config/env'
 
-
 const getMessageByStatus = status => {
   const statusMap = {
     '401': '未登录',
@@ -12,7 +11,7 @@ const getMessageByStatus = status => {
     '408': '请求超时',
     '500': '服务端出错',
     '404': '服务端没找到这个资源',
-    '502': '网关出错',
+    '502': '网关出错'
   }
 
   return statusMap[status] || '未知的错误'
@@ -30,49 +29,47 @@ export default class Interceptor extends React.Component {
 
     this.state.requestsCount = 0
     axios.interceptors.request.use(request => {
-      this.setState({ requestsCount: ++this.state.requestsCount })
+      this.setState({ requestsCount: this.state.requestsCount + 1 })
 
       return request
     })
-    axios.interceptors.response.use(response => {
-      const data = response.data
-      if (!data) return Promise.reject(response)
+    axios.interceptors.response.use(
+      response => {
+        const data = response.data
+        if (!data) return Promise.reject(response)
 
-      this.setState({ requestsCount: --this.state.requestsCount })
+        this.setState({ requestsCount: this.state.requestsCount - 1 })
 
-      if (!response.data.success) {
-        message.error(response.data.message)
+        if (!response.data.success) {
+          message.error(response.data.message)
 
-        return Promise.reject(response.data)
-      }
-      // if (response.data.success) {
-      //   response.data.message && message.success(response.data.message)
-      // }
-
-      return response.data
-    }, err => {
-      this.setState({ requestsCount: --this.state.requestsCount })
-      // 如果没有switch匹配得到相应的messageInfo, 那么默认值为 未知的错误
-      console.log(JSON.stringify(err))
-      if (err && err.response) {
-        message.error(getMessageByStatus(err.response.status))
-        if (err.response.status === 401) {
-          _self.setState({ notAuthenticated: true })
+          return Promise.reject(response.data)
         }
+        // if (response.data.success) {
+        //   response.data.message && message.success(response.data.message)
+        // }
 
-        return Promise.reject(err.response.data)
+        return response.data
+      },
+      err => {
+        this.setState({ requestsCount: this.state.requestsCount - 1 })
+        // 如果没有switch匹配得到相应的messageInfo, 那么默认值为 未知的错误
+        if (err && err.response) {
+          message.error(getMessageByStatus(err.response.status))
+          if (err.response.status === 401) {
+            _self.setState({ notAuthenticated: true })
+          }
+
+          return Promise.reject(err.response.data)
+        }
+        message.error('数据请求失败')
+
+        return Promise.reject(err)
       }
-      message.error('数据请求失败')
-
-      return Promise.reject(err)
-    })
+    )
   }
 
   render() {
-    return (
-      <div>
-        {this.state.notAuthenticated && <Redirect to="/login" />}
-      </div>
-    )
+    return <div>{this.state.notAuthenticated && <Redirect to="/login" />}</div>
   }
 }

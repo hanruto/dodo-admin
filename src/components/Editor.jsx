@@ -35,7 +35,7 @@ BraftEditor.use(
 
 export default class Editor extends React.Component {
   state = {
-    contentSize: 'large'
+    contentSize: 'middle'
   }
 
   handleUploadImage = ({ file, success }) => {

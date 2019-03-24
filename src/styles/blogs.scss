@@ -36,8 +36,7 @@
     }
     .text-color-dropdown .dropdown-handler,
     .link-editor-dropdown .dropdown-handler,
-    .bf-emoji-dropdown .dropdown-handler,
-      {
+    .bf-emoji-dropdown .dropdown-handler {
       padding-left: 0;
     }
     .dropdown-handler {
@@ -103,7 +102,7 @@
 }
 
 .blog-view-content,
-.bf-container .DraftEditor-editorContainer div[data-contents=true]{
+.bf-container .DraftEditor-editorContainer div[data-contents='true'] {
   @include blog-reset;
 }
 .bf-container .public-DraftEditor-content {
