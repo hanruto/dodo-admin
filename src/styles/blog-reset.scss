@@ -1,6 +1,7 @@
 @mixin blog-reset {
-  font-size: 14px;
-  color: #444;
+  font-size: 16px;
+  color: #4a4a4a;
+  padding-bottom: 0;
 
   h1,
   h2,
@@ -16,8 +17,7 @@
   p,
   code,
   blockquote {
-    font-weight: normal;
-    line-height: 1.5;
+    line-height: 1.8;
     margin: 0.5em 0;
     div,
     span {
@@ -25,7 +25,6 @@
       margin: 0;
     }
   }
-
   p {
     min-height: 1.5em;
   }
@@ -33,10 +32,22 @@
   ol {
     margin: 0.5em 0;
     padding-left: 16px;
+    padding: 0;
     li {
       margin-left: 1.5em;
       margin-bottom: 0.5em;
     }
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: normal;
   }
   h1 {
     font-size: 2.2em;
@@ -69,12 +80,24 @@
     color: #fff;
     font-family: monospace;
     font-size: 14px;
-    font-weight: 400;
-    line-height: 16px;
-  }
+    line-height: 1.5;
+    @media screen and (max-width: 720px) {
+      box-sizing: content-box;
+      width: 100%;
+      position: relative;
+      left: -15px;
+      border-radius: 0;
+    }
 
+    code {
+      line-height: 1.7;
+      font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+      div {
+        white-space: nowrap;
+      }
+    }
+  }
   blockquote {
-    overflow-x: auto;
     margin: 0 0 10px;
     padding: 15px 20px;
     background-color: #f1f2f3;
@@ -82,7 +105,6 @@
     color: #666;
     font-style: italic;
   }
-
   img {
     max-width: 100%;
   }

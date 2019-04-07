@@ -1,25 +1,27 @@
-body{
-    padding: 0;
-    margin: 0;
+body {
+  padding: 0;
+  margin: 0;
+  font-family: PingFang SC, Microsoft Yehei, Hiragino Sans GB;
 }
 
-.ant-table-thead > tr > th, .ant-table-tbody > tr > td{
-    padding: 10px;
+.ant-table-thead > tr > th,
+.ant-table-tbody > tr > td {
+  padding: 10px;
 }
 
-img{
-    max-width: 100%;
+img {
+  max-width: 100%;
 }
 
-.ant-select-selection{
-    border-radius: $input-radius;
-    padding-left: $input-radius / 2;
+.ant-select-selection {
+  border-radius: $input-radius;
+  padding-left: $input-radius / 2;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .ant-table-content {
-    background-color: #fff;
+  background-color: #fff;
 }
