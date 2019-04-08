@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'antd'
+import { Table, Icon, Modal, Input } from 'antd'
 import axios from 'axios'
 import { dateFormater } from '../util/tool'
 import ConfirmDelete from '../components/ConfirmDelete'
@@ -7,12 +7,12 @@ import ConfirmDelete from '../components/ConfirmDelete'
 const columns = [
   {
     key: 'username',
-    dataIndex: 'username',
+    dataIndex: 'user.username',
     title: '名字'
   },
   {
     key: 'blog',
-    dataIndex: 'blog',
+    dataIndex: 'blog.title',
     title: '博客标题',
     width: 200
   },
@@ -36,7 +36,7 @@ const columns = [
 
 export default class LeavedMessageList extends React.Component {
   state = {
-    blogs: [],
+    list: [],
     selectable: false,
     count: 0,
     perPage: 15,
@@ -50,22 +50,51 @@ export default class LeavedMessageList extends React.Component {
   fetch = (page = 1) => {
     axios.get('/leaved-messages', { params: { page } }).then(data => {
       const { list, count, perPage, page } = data
-      list.forEach((item, index) => {
-        item.username = item.user && item.user.username
-        item.blog = item.blog && item.blog.title
+      const leavedMessages = list.map((item, index) => {
         item.message = item.message.replace(/<.*?>/g, '')
         item.created = dateFormater(item.created, true)
-        item.action = <ConfirmDelete onConfirm={() => this.handleDelete(item)} />
+        item.user = item.type === 1 ? { username: '管理员' } : item.user
+        item.action = (
+          <span>
+            <a className="action" onClick={() => this.handleReply(item)}>
+              <Icon type="message" className="link" />
+            </a>
+            <ConfirmDelete onConfirm={() => this.handleDelete(item)} />
+          </span>
+        )
         item.key = index
+        return item
       })
-      this.setState({ list, count, perPage, page })
+
+      this.setState({ list: leavedMessages, count, perPage, page })
     })
   }
 
   handleDelete = item => {
     this.setState()
     axios.delete(`/leaved-messages/${item._id}`).then(() => {
-      this.fetch(this.state.page)
+      this.fetch()
+    })
+  }
+
+  handleReply = item => {
+    let input = ''
+    Modal.confirm({
+      title: '回复',
+      className: 'leaved-message-reply-modal',
+      content: <Input placeholder="请输入要回复的内容" onChange={e => (input = e.target.value)} />,
+      onOk: () => {
+        const leavedMessage = {
+          message: input,
+          blog: item.blog._id,
+          reply: item._id,
+          type: 1
+        }
+
+        axios.post('/leaved-messages', leavedMessage).then(() => {
+          this.fetch(this.state.page)
+        })
+      }
     })
   }
 
@@ -76,7 +105,7 @@ export default class LeavedMessageList extends React.Component {
 
     return (
       <div className="do-container">
-        <Table columns={columns} dataSource={list} pagination={false} />
+        <Table className="leaved-message-table" columns={columns} dataSource={list} pagination={false} />
       </div>
     )
   }

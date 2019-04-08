@@ -6,7 +6,7 @@ const path = require('path'),
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 module.exports = {
-  entry: ['babel-polyfill', './src/index.jsx'],
+  entry: ['babel-polyfill', 'react-hot-loader/patch', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: 'main.js'
@@ -26,7 +26,7 @@ module.exports = {
       },
       {
         test: /\.(js|jsx)$/,
-        use: ['babel-loader', { loader: 'eslint-loader', options: { fix: true } }],
+        use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }],
         exclude: /node_modules/
       },
       {
