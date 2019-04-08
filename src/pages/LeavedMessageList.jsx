@@ -53,7 +53,7 @@ export default class LeavedMessageList extends React.Component {
       const leavedMessages = list.map((item, index) => {
         item.message = item.message.replace(/<.*?>/g, '')
         item.created = dateFormater(item.created, true)
-        item.user = item.type === 1 ? { username: '管理员' } : item.user
+        item.user = item.type === 2 ? { username: '管理员' } : item.user
         item.action = (
           <span>
             <a className="action" onClick={() => this.handleReply(item)}>
@@ -87,11 +87,10 @@ export default class LeavedMessageList extends React.Component {
         const leavedMessage = {
           message: input,
           blog: item.blog._id,
-          reply: item._id,
-          type: 1
+          reply: item._id
         }
 
-        axios.post('/leaved-messages', leavedMessage).then(() => {
+        axios.post('/leaved-messages/reply', leavedMessage).then(() => {
           this.fetch(this.state.page)
         })
       }
