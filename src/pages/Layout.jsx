@@ -10,7 +10,11 @@ const menus = [
   { to: '/app/users', icon: 'user', text: '用户' },
   { to: '/app/blogs', icon: 'book', text: '博客' },
   { to: '/app/leaved-messages', icon: 'message', text: '留言' },
-  { to: '/app/view-records', icon: 'smile', text: '访客记录' },
+  {
+    icon: 'smile',
+    text: '访客记录',
+    options: [{ to: '/app/view-records', text: '记录' }, { to: '/app/view-records/analysis', text: '统计' }]
+  },
   { to: '/login', icon: 'logout', text: '登出' }
 ]
 
@@ -30,24 +34,24 @@ class SiderBar extends React.Component {
             return menu.options ? (
               <Menu.SubMenu
                 className="sub-menus"
-                key={menu.key}
+                key={menu.text}
                 title={
                   <span>
                     <Icon type={menu.icon} />
-                    <span>{menu.text}</span>
+                    {menu.text}
                   </span>
                 }
               >
                 {menu.options.map(option => (
                   <Menu.Item className={`nav-menu ${currentPath === option.to ? 'active' : ''}`} key={option.to}>
-                    <Icon type={option.icon} />
                     {option.text}
                   </Menu.Item>
                 ))}
               </Menu.SubMenu>
             ) : (
               <Menu.Item key={menu.to} className={`nav-menu ${currentPath === menu.to ? 'active' : ''}`}>
-                <Icon type={menu.icon} /> {menu.text}
+                <Icon type={menu.icon} />
+                {menu.text}
               </Menu.Item>
             )
           })}

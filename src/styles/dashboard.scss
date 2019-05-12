@@ -31,8 +31,10 @@
   .sub-menus {
     .ant-menu-submenu-title {
       margin: 0 !important;
+      background-color: $sidebar-bg-color;
+      color: #fff;
     }
-    .nav-menu{
+    .nav-menu {
       height: 40px;
       line-height: 40px;
     }
@@ -57,12 +59,12 @@
   background-color: #f3f3f3;
   padding-bottom: 40px;
   @media screen and(max-width: 762px) {
-    margin-left: 0
+    margin-left: 0;
   }
   min-height: 100vh;
   transition: margin-left ease 0.4s;
 }
 
-.collapsed+.main-content {
+.collapsed + .main-content {
   margin-left: $nav-collapsed-width;
 }

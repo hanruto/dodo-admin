@@ -1,74 +1,73 @@
 import React from 'react'
 import { Table } from 'antd'
-import axios from 'axios'
 import { dateFormater } from '../util/tool'
-
+import { inject, observer } from 'mobx-react'
 
 const columns = [
   {
     key: 'siteName',
     dataIndex: 'siteName',
-    title: '网站',
-  }, {
+    title: '网站'
+  },
+  {
     key: 'nickname',
     dataIndex: 'nickname',
     title: '用户名称',
-    width: 300,
-  }, {
+    width: 300
+  },
+  {
     key: 'ip',
     dataIndex: 'ip',
-    title: 'ip',
-  }, {
+    title: 'ip'
+  },
+  {
     key: 'created',
     dataIndex: 'created',
-    title: '访问时间',
-  },
+    title: '访问时间'
+  }
 ]
 
+@inject('viewRecordStore')
+@observer
 export default class ViewRecordList extends React.Component {
-  state = {
-    list: [],
-    selectable: false,
-    count: 0,
-    perPage: 15,
-    page: 1,
-    dayCount: 0,
-  }
-
   componentDidMount() {
-    this.fetch()
+    this.fetchRecords()
   }
 
-  fetch = () => {
-    axios.get('/view-records', { params: { limit: 40 } })
-      .then(data => {
-        const { list, count, dayCount } = data
-        list.forEach((item) => {
-          item.created = dateFormater(item.created, true)
-          item.nickname = item.info && item.info.nickname || '未设置'
-        })
-        this.setState({ list, count, dayCount })
-      })
+  fetchRecords = () => {
+    this.props.viewRecordStore.getRecords()
   }
 
   handleTogglePage = page => this.fetch(page)
 
-  render() {
-    const { list, count, dayCount } = this.state
+  get records() {
+    const { list = [], count, dayCount } = this.props.viewRecordStore.records
+    const records = list.map(item => {
+      const record = { ...item }
+      record.created = dateFormater(item.created, true)
+      record.nickname = (item.info && item.info.nickname) || '未设置'
+      return record
+    })
+    return { list: records, count, dayCount }
+  }
 
-    return <div className="do-container">
-      <div className="do-card">
-        <span>总计 <span className="do-text-large">{count}</span> 次</span>
+  render() {
+    const { list, count, dayCount } = this.records
+
+    return (
+      <div className="do-container">
+        <div className="do-card">
+          <span>
+            总计 <span className="do-text-large">{count}</span> 次
+          </span>
+        </div>
+        <div className="do-card">
+          <span>
+            今日 <span className="do-text-large">{dayCount}</span> 次
+          </span>
+        </div>
+        <Table rowKey={item => item._id} columns={columns} dataSource={list} pagination={false} />
       </div>
-      <div className="do-card">
-        <span>今日 <span className="do-text-large">{dayCount}</span> 次</span>
-      </div>
-      <Table
-        rowKey={item => item._id}
-        columns={columns}
-        dataSource={list}
-        pagination={false}
-      />
-    </div>
+    )
   }
 }

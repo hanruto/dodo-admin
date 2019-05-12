@@ -1,7 +1,9 @@
 import BlogStore from './blog'
-import userStore from './user'
+import UserStore from './user'
+import ViewRecordStore from './view-record'
 
 export default {
   blogStore: new BlogStore(),
-  userStore: new userStore()
+  userStore: new UserStore(),
+  viewRecordStore: new ViewRecordStore()
 }
