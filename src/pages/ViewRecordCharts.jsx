@@ -7,7 +7,7 @@ export function Chart(props) {
   const width = props.data.length * 40
 
   return (
-    <LineChart width={width} height={400} data={props.data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+    <LineChart width={width} height={450} data={props.data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
       <XAxis dataKey="label" />
       <Tooltip />
       <CartesianGrid stroke="#f5f5f5" />

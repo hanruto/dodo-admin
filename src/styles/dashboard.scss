@@ -20,6 +20,7 @@
       color: #fff;
     }
   }
+
   .nav-menu {
     &.active {
       color: #fff;
@@ -28,15 +29,41 @@
     }
   }
 
+  .ant-menu-submenu-title,
+  .nav-menu {
+    .anticon {
+      margin-right: 15px;
+    }
+  }
+
   .sub-menus {
     .ant-menu-submenu-title {
       margin: 0 !important;
       background-color: $sidebar-bg-color;
-      color: #fff;
+      color: #a3a3a3;
+      .anticon {
+        margin-right: 15px;
+      }
+
+      .ant-menu-submenu-arrow {
+        &:before,
+        &:after {
+          background: #a3a3a3 !important;
+        }
+      }
     }
+
     .nav-menu {
       height: 40px;
       line-height: 40px;
+    }
+
+    > .ant-menu {
+      background-color: $sidebar-bg-color !important;
+    }
+
+    .ant-menu-item {
+      padding-left: 53px !important;
     }
   }
 
