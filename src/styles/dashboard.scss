@@ -37,6 +37,16 @@
   }
 
   .sub-menus {
+    background-color: $sidebar-bg-color;
+
+    .ant-menu-sub {
+      width: $nav-width !important;
+      border: none !important;
+      margin: 0;
+      padding: 0;
+      background-color: $sidebar-bg-color;
+    }
+
     .ant-menu-submenu-title {
       margin: 0 !important;
       background-color: $sidebar-bg-color;
