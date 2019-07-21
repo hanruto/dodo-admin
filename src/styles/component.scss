@@ -162,6 +162,11 @@
     width: 200px;
     background-color: #fff;
     margin-right: 20px;
+
+    &-title {
+        font-weight: 600;
+        margin-right: 6px;
+    }
 }
 
 .do-tag {

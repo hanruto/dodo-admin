@@ -11,7 +11,7 @@ export function Chart(props) {
       <XAxis dataKey="label" />
       <Tooltip />
       <CartesianGrid stroke="#f5f5f5" />
-      <Line type="monotone" dataKey="uv" stroke="#3399ff" yAxisId={0} />
+      <Line type="monotone" dataKey="pv" stroke="#3399ff" yAxisId={0} />
     </LineChart>
   )
 }
@@ -25,12 +25,10 @@ export default class ViewRecordList extends React.Component {
 
   get analysis() {
     const analysis = this.props.viewRecordStore.analysis
-    return analysis.map(item => ({ label: item.date, uv: item.viewCount }))
+    return analysis.map(item => ({ label: item.date, pv: item.viewCount }))
   }
 
   render() {
-    console.log(this.analysis)
-
     return (
       <div className="do-container">
         <div className="view-record-chart-wrapper">
