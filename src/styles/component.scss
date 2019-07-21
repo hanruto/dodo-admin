@@ -151,8 +151,9 @@
 }
 
 .do-text-large {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: 300;
+    color: #333;
 }
 
 .do-card {
@@ -164,8 +165,8 @@
     margin-right: 20px;
 
     &-title {
-        font-weight: 600;
         margin-right: 6px;
+        color: #666;
     }
 }
 

@@ -1,5 +1,20 @@
+.view-record-chart-card {
+  background-color: #fff;
+  border: 24px solid #fff;
+  border-top: none;
+  border-bottom: none;
+  padding: 24px 0;
+}
 .view-record-chart-wrapper {
   width: 100%;
+  display: flex;
+  justify-content: center;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin-top: 12px;
+  flex-wrap: wrap;
+
+  .recharts-default-legend {
+    margin-top: 20px !important;
+  }
 }
