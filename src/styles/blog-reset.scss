@@ -8,10 +8,6 @@
     line-height: 1.6;
   }
 
-  *:not(a) {
-    color: #4a4a4a;
-  }
-
   h1,
   h2,
   h3,
@@ -26,7 +22,6 @@
   p,
   code,
   blockquote {
-    font-weight: normal;
     line-height: 1.8;
     margin: 0.5em 0;
     div,
@@ -106,6 +101,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
+
     @media screen and (max-width: 720px) {
       box-sizing: content-box;
       width: 100%;
@@ -122,6 +118,14 @@
       div {
         white-space: nowrap;
       }
+    }
+
+    a * {
+      color: $primary-color !important;
+    }
+
+    span[style='font-weight: bold;'] * {
+      font-weight: bold !important;
     }
   }
 
