@@ -21,7 +21,9 @@
 .editor-wrapper {
   border: 1px solid #ccc;
   .bf-controlbar {
-    padding: 0;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+
     .control-item,
     .dropdown-handler,
     .dropdown-handler span,
