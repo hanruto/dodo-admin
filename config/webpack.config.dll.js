@@ -6,18 +6,15 @@ module.exports = {
     lib: ['react', 'mobx', 'mobx-react', 'braft-editor', 'recharts']
   },
   output: {
-    path: path.resolve(__dirname, '../dist'),
+    path: path.resolve(__dirname, '../dist/dll'),
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].js',
     library: '[name]_library'
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': '"production"'
-    }),
     new webpack.DllPlugin({
       context: __dirname,
-      path: path.resolve(__dirname, '../dll', 'lib.manifest.json'),
+      path: path.resolve(__dirname, '../dist/dll', 'lib.manifest.json'),
       name: '[name]_library'
     })
   ]
