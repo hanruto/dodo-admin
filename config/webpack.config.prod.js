@@ -34,10 +34,13 @@ const config = Object.assign(baseConfig, {
   },
 })
 
-const cleanPlugin = new CleanWebpackPlugin()
+const cleanPlugin = new CleanWebpackPlugin({
+  cleanOnceBeforeBuildPatterns: ['**/*', '!dll']
+})
+
 const dllReferencePlugin = new webpack.DllReferencePlugin({
   context: __dirname,
-  manifest: require('../dll/lib.manifest.json')
+  manifest: require('../dist/dll/lib.manifest.json')
 })
 
 config.plugins.push(cleanPlugin, dllReferencePlugin)
