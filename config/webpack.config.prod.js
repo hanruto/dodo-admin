@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const baseConfig = require('./webpack.config.base')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
@@ -35,14 +34,9 @@ const config = Object.assign(baseConfig, {
 })
 
 const cleanPlugin = new CleanWebpackPlugin({
-  cleanOnceBeforeBuildPatterns: ['**/*', '!dll']
+  cleanOnceBeforeBuildPatterns: ['**/*', '!dll/**/*']
 })
 
-const dllReferencePlugin = new webpack.DllReferencePlugin({
-  context: __dirname,
-  manifest: require('../dist/dll/lib.manifest.json')
-})
-
-config.plugins.push(cleanPlugin, dllReferencePlugin)
+config.plugins.push(cleanPlugin)
 
 module.exports = config

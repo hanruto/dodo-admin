@@ -7,8 +7,6 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, '../dist/dll'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
     library: '[name]_library'
   },
   plugins: [
