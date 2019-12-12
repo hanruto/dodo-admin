@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server --progress --color --config ./config/webpack.config.dev.js",
+    "dll": "webpack --config ./config/webpack.config.dll.js",
     "build": "webpack --config ./config/webpack.config.prod.js --colors --progress",
     "analyze": "webpack --config ./config/webpack.config.analyze.js --colors --progress",
     "start": "node server"
@@ -17,6 +18,7 @@
     "braft-extensions": "^0.0.3",
     "draft-js-prism": "^1.0.6",
     "express": "^4.16.4",
+    "loadable-components": "^2.2.3",
     "mobx": "^5.6.0",
     "mobx-react": "^5.3.6",
     "prismjs": "^1.17.1",
@@ -42,6 +44,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.26.0",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^0.28.11",
     "eslint": "^5.6.0",
     "eslint-loader": "^2.1.1",

@@ -1,4 +1,6 @@
+const webpack = require('webpack')
 const baseConfig = require('./webpack.config.base')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const config = Object.assign(baseConfig, {
   mode: 'production',
@@ -32,5 +34,12 @@ const config = Object.assign(baseConfig, {
   },
 })
 
+const cleanPlugin = new CleanWebpackPlugin()
+const dllReferencePlugin = new webpack.DllReferencePlugin({
+  context: __dirname,
+  manifest: require('../dll/lib.manifest.json')
+})
+
+config.plugins.push(cleanPlugin, dllReferencePlugin)
 
 module.exports = config

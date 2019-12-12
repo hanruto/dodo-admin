@@ -1,9 +1,11 @@
 import React from 'react'
+import loadable from 'loadable-components'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import EditBlog from '../pages/EditBlog'
-import BlogView from '../pages/BlogView'
-import Layout from '../pages/Layout'
 
+
+const Layout = loadable(() => import(/* webpackChunkName: 'layout' */'../pages/Layout'))
+const EditBlog = loadable(() => import(/* webpackChunkName: 'edit-blog' */'../pages/EditBlog'))
+const BlogView = loadable(() => import(/* webpackChunkName: 'blog-view' */'../pages/BlogView'))
 
 export default function PageRouter() {
   return (
