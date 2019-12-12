@@ -53,7 +53,7 @@ class BlogList extends React.Component {
   state = {
     tagEditable: false,
     selectedTags: [],
-    blogType: null,
+    blogType: 1,
   }
 
   componentDidMount() {
@@ -187,7 +187,6 @@ class BlogList extends React.Component {
             <div className="blog-filter-item">
               <span>类型：</span>
               <Radio.Group onChange={this.handleBlogTypeChange} value={blogType}>
-                <Radio value={null}>全部</Radio>
                 <Radio value={1}>公开</Radio>
                 <Radio value={2}>私密</Radio>
               </Radio.Group>

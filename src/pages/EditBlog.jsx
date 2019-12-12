@@ -39,7 +39,6 @@ class EditBlog extends React.Component {
   }
 
   componentWillUnmount() {
-    this.handleSaveInLocal()
     clearInterval(this.saveTimer)
   }
 

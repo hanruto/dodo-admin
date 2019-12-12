@@ -1,8 +1,14 @@
 const baseConfig = require('./webpack.config.base')
+const path = require('path')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const config = Object.assign(baseConfig, {
   mode: 'production',
+  output: {
+    path: path.resolve(__dirname, '../dist'),
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[chunkhash].js',
+  },
   optimization: {
     runtimeChunk: 'single',
     splitChunks: {

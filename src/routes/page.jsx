@@ -1,7 +1,14 @@
 import React from 'react'
-import loadable from 'loadable-components'
+import loadableComponent from 'loadable-components'
+import Spin from 'antd/lib/spin'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
+const loadable = (Component) => {
+  return loadableComponent(
+    Component,
+    { fallback: <div className="main-page-spin"><Spin /></div> }
+  )
+}
 
 const Layout = loadable(() => import(/* webpackChunkName: 'layout' */'../pages/Layout'))
 const EditBlog = loadable(() => import(/* webpackChunkName: 'edit-blog' */'../pages/EditBlog'))

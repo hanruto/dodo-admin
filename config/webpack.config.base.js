@@ -1,17 +1,11 @@
-const path = require('path'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  HappyPack = require('happypack'),
-  os = require('os') // node 提供的系统操作模块
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HappyPack = require('happypack')
+const os = require('os') // node 提供的系统操作模块
 
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 module.exports = {
   entry: ['babel-polyfill', 'react-hot-loader/patch', './src/index.jsx'],
-  output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: '[name].[contenthash].js',
-    chunkFilename: '[name].[contenthash].js',
-  },
   resolve: {
     extensions: ['.jsx', '.js']
   },
@@ -43,11 +37,9 @@ module.exports = {
       favicon: './favicon.ico'
     }),
     new HappyPack({
-      // 基础参数设置
-      id: 'babel', // 上面loader?后面指定的id
-      loaders: ['babel-loader?cacheDirectory'], // 实际匹配处理的loader
+      id: 'babel',
+      loaders: ['babel-loader?cacheDirectory'],
       threadPool: happyThreadPool,
-      // cache: true // 已被弃用
       verbose: true
     })
   ]

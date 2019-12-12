@@ -2,7 +2,9 @@ cd /project/common-admin
 
 git pull
 
-cnpm i
+yarn install
+
+npm run build
 
 pm2 restart common-admin
 
