@@ -13,7 +13,7 @@
   "proxy": "http://localhost:8081",
   "dependencies": {
     "antd": "^3.10.0",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "braft-editor": "^2.2.9",
     "braft-extensions": "^0.0.3",
     "draft-js-prism": "^1.0.6",
