@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-import { message } from 'antd'
+import message from 'antd/lib/message'
 import { baseApiUrl } from '../config/env'
 
 const getMessageByStatus = status => {

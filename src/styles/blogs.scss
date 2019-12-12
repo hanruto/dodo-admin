@@ -69,14 +69,19 @@
 .blog-list-head {
   display: flex;
   justify-content: space-between;
-  .blog-tags {
-    width: calc(100% - 200px);
+  .blog-filter {
+    width: calc(100% - 300px);
+    
+    .blog-filter-item+.blog-filter-item {
+      margin-top: 15px;
+    }
+
     .ant-tag {
       margin-bottom: 5px;
     }
   }
   .blog-btns {
-    width: 200px;
+    width: 300px;
     text-align: right;
     button {
       margin-left: 10px;

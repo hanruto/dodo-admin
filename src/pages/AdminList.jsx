@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { Table } from 'antd'
+import Table from 'antd/lib/table'
 
 export default class AdminList extends React.Component {
   constructor() {

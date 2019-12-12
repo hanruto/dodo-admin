@@ -9,7 +9,8 @@ module.exports = {
   entry: ['babel-polyfill', 'react-hot-loader/patch', './src/index.jsx'],
   output: {
     path: path.resolve(__dirname, '../dist'),
-    filename: 'main.js'
+    filename: '[name].[contenthash].js',
+    chunkFilename: '[name].[contenthash].js',
   },
   resolve: {
     extensions: ['.jsx', '.js']

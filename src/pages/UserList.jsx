@@ -1,5 +1,5 @@
 import React from 'react'
-import { Table } from 'antd'
+import Table from 'antd/lib/table'
 import { dateFormater } from '../util/tool'
 import { inject, observer } from 'mobx-react'
 import ConfirmDelete from '../components/ConfirmDelete'

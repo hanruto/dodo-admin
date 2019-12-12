@@ -29,7 +29,8 @@ const config = Object.assign(baseConfig, {
         }
       }
     }
-  }
+  },
 })
+
 
 module.exports = config

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Popconfirm, Icon } from 'antd'
+import Popconfirm from 'antd/lib/popconfirm'
+import Icon from 'antd/lib/icon'
 
 export default class ConfirmDelete extends React.Component {
   render() {

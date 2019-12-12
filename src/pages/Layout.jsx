@@ -1,8 +1,8 @@
 import React from 'react'
-import { Icon } from 'antd'
-import DashboardRouter from '../routes/dashboard'
-import { Menu } from 'antd'
+import Icon from 'antd/lib/icon'
+import Menu from 'antd/lib/menu'
 import { withRouter } from 'react-router-dom'
+import DashboardRouter from '../routes/dashboard'
 import needLogin from '../util/needLogin'
 
 const menus = [
@@ -31,8 +31,8 @@ class SiderBar extends React.Component {
       <div className="main-nav">
         <Menu mode="inline" selectable={false} onClick={this.handleToggle} defaultOpenKeys={['book']}>
           {menus.map(menu => {
-            return menu.options ? (
-              <Menu.SubMenu
+            return menu.options
+              ? <Menu.SubMenu
                 className="sub-menus"
                 key={menu.text}
                 title={
@@ -48,12 +48,10 @@ class SiderBar extends React.Component {
                   </Menu.Item>
                 ))}
               </Menu.SubMenu>
-            ) : (
-              <Menu.Item key={menu.to} className={`nav-menu ${currentPath === menu.to ? 'active' : ''}`}>
+              : <Menu.Item key={menu.to} className={`nav-menu ${currentPath === menu.to ? 'active' : ''}`}>
                 <Icon type={menu.icon} />
                 {menu.text}
               </Menu.Item>
-            )
           })}
         </Menu>
       </div>
