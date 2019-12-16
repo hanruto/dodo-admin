@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   entry: {
-    lib: ['react', 'mobx', 'mobx-react', 'braft-editor', 'recharts']
+    lib: ['react', 'mobx', 'mobx-react', 'braft-editor', 'recharts', 'lodash', 'axios']
   },
   output: {
     path: path.resolve(__dirname, '../dll'),

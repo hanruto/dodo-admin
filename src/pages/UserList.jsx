@@ -34,12 +34,21 @@ export default class LeavedMessageList extends React.Component {
     }
   ]
 
+  state = {
+    loading: true,
+  }
+
   componentDidMount() {
     this.fetch()
   }
 
   fetch = params => {
+    this.setState({ loading: true })
     this.props.userStore.getUsers(params)
+      .then(res => {
+        this.setState({ loading: false })
+        return Promise.resolve(res)
+      })
   }
 
   handleDelete = id => {
@@ -53,10 +62,12 @@ export default class LeavedMessageList extends React.Component {
   render() {
     const { userList } = this.props.userStore
     const { list, total, page, perPage } = userList
+    const { loading } = this.state
 
     return (
       <div className="do-container">
         <Table
+          loading={loading}
           columns={this.columns}
           rowKey={item => item._id}
           dataSource={list}

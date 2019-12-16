@@ -54,6 +54,7 @@ class BlogList extends React.Component {
     tagEditable: false,
     selectedTags: [],
     blogType: 1,
+    loading: true,
   }
 
   componentDidMount() {
@@ -62,9 +63,14 @@ class BlogList extends React.Component {
   }
 
   fetch = params => {
+    this.setState({ loading: true })
     const { selectedTags, blogType } = this.state
     params = { ...params, ...{ tags: selectedTags, type: blogType } }
     return this.props.blogStore.list(params)
+      .then(res => {
+        this.setState({ loading: false })
+        return Promise.resolve(res)
+      })
   }
 
   fetchTags = () => {
@@ -160,7 +166,7 @@ class BlogList extends React.Component {
       blogs: { page, count, perPage },
       tags
     } = this.props.blogStore
-    const { selectedTags, tagEditable, blogType } = this.state
+    const { selectedTags, tagEditable, blogType, loading } = this.state
 
     return (
       <div className="do-container">
@@ -205,6 +211,7 @@ class BlogList extends React.Component {
         </div>
 
         <Table
+          loading={loading}
           className="blog-list-table"
           rowKey={(blog, index) => blog._id + index}
           columns={columns}

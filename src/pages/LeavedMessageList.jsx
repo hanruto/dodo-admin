@@ -43,7 +43,8 @@ export default class LeavedMessageList extends React.Component {
     selectable: false,
     count: 0,
     perPage: 15,
-    page: 1
+    page: 1,
+    loading: true,
   }
 
   componentDidMount() {
@@ -51,26 +52,28 @@ export default class LeavedMessageList extends React.Component {
   }
 
   fetch = (page = 1) => {
-    axios.get('/leaved-messages', { params: { page } }).then(data => {
-      const { list, count, perPage, page } = data
-      const leavedMessages = list.map((item, index) => {
-        item.message = item.message.replace(/<.*?>/g, '')
-        item.created = dateFormater(item.created, true)
-        item.user = item.type === 2 ? { username: '管理员' } : item.user
-        item.action = (
-          <span>
-            <a className="action" onClick={() => this.handleReply(item)}>
-              <Icon type="message" className="link" />
-            </a>
-            <ConfirmDelete onConfirm={() => this.handleDelete(item)} />
-          </span>
-        )
-        item.key = index
-        return item
-      })
+    this.setState({ loading: true })
+    axios.get('/leaved-messages', { params: { page } })
+      .then(data => {
+        const { list, count, perPage, page } = data
+        const leavedMessages = list.map((item, index) => {
+          item.message = item.message.replace(/<.*?>/g, '')
+          item.created = dateFormater(item.created, true)
+          item.user = item.type === 2 ? { username: '管理员' } : item.user
+          item.action = (
+            <span>
+              <a className="action" onClick={() => this.handleReply(item)}>
+                <Icon type="message" className="link" />
+              </a>
+              <ConfirmDelete onConfirm={() => this.handleDelete(item)} />
+            </span>
+          )
+          item.key = index
+          return item
+        })
 
-      this.setState({ list: leavedMessages, count, perPage, page })
-    })
+        this.setState({ list: leavedMessages, count, perPage, page, loading: false })
+      })
   }
 
   handleDelete = item => {
@@ -103,11 +106,16 @@ export default class LeavedMessageList extends React.Component {
   handleTogglePage = page => this.fetch(page)
 
   render() {
-    const { list } = this.state
+    const { list, loading } = this.state
 
     return (
       <div className="do-container">
-        <Table className="leaved-message-table" columns={columns} dataSource={list} pagination={false} />
+        <Table
+          loading={loading}
+          className="leaved-message-table"
+          columns={columns}
+          dataSource={list}
+          pagination={false} />
       </div>
     )
   }

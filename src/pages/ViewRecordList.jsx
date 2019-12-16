@@ -41,12 +41,21 @@ const Card = (props) => {
 @inject('viewRecordStore')
 @observer
 export default class ViewRecordList extends React.Component {
+  state = {
+    loading: true
+  }
+
   componentDidMount() {
     this.fetchRecords()
   }
 
   fetchRecords = () => {
+    this.setState({ loading: true })
     this.props.viewRecordStore.getRecords()
+      .then(res => {
+        this.setState({ loading: false })
+        return Promise.resolve(res)
+      })
   }
 
   handleTogglePage = page => this.fetch(page)
@@ -64,6 +73,7 @@ export default class ViewRecordList extends React.Component {
 
   render() {
     const { list, pvCount, dayPvCount, uvCount, dayUvCount } = this.records
+    const { loading } = this.state
 
     return (
       <div className="do-container">
@@ -71,7 +81,13 @@ export default class ViewRecordList extends React.Component {
         <Card title="日PV" text={dayPvCount} />
         <Card title="总UV" text={uvCount} />
         <Card title="日UV" text={dayUvCount} />
-        <Table rowKey={item => item._id} columns={columns} dataSource={list} pagination={false} />
+        <Table
+          loading={loading}
+          rowKey={item => item._id}
+          columns={columns}
+          dataSource={list}
+          pagination={false}
+        />
       </div>
     )
   }

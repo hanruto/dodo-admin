@@ -23,7 +23,7 @@ const config = Object.assign(baseConfig, {
         },
         react: {
           name: 'react',
-          test: module => /react|redux/.test(module.context), // 打包react和redux相关的一些第三方包
+          test: module => /react|mobx|mobx-react/.test(module.context), // 打包react和redux相关的一些第三方包
           chunks: 'initial',
           priority: 10,
           enforce: true
