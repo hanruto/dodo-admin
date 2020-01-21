@@ -5,7 +5,6 @@
 
   @media screen and (max-width: 768px) {
     font-size: 14px;
-    line-height: 1.6;
   }
 
   h1,
@@ -22,8 +21,9 @@
   p,
   code,
   blockquote {
-    line-height: 1.8;
+    line-height: 1.65;
     margin: 0.5em 0;
+
     div,
     span {
       line-height: inherit;
@@ -35,19 +35,20 @@
   h2,
   h3,
   h4 {
-    font-weight: 500;
+    font-weight: 600;
     color: #4a4a4a;
   }
 
   p {
     min-height: 1.6em;
   }
-
+  
   ul,
   ol {
-    margin: 0.5em 0;
+    margin: 0.65em 0;
     padding-left: 16px;
     padding: 0;
+
     li {
       margin-left: 1.5em;
       margin-bottom: 0.5em;
@@ -62,30 +63,26 @@
     list-style-type: decimal;
   }
 
+  h2, h3, h4 {
+    line-height: 1.1;
+    margin: 1.6em 0 1em;
+  }
+
   h1 {
-    font-size: 2.2em;
-    margin: 30px 0;
+    font-size: 2em;
   }
 
   h2 {
-    font-size: 1.8em;
-    margin: 25px 0;
+    font-size: 1.7em;
   }
 
   h3 {
     font-size: 1.4em;
-    line-height: 1.1;
-    margin: 1em 0;
-    position: relative;
-    padding-left: 10px;
-    border-left: 6px solid $primary-color;
-    left: -16px;
   }
 
   h4 {
     font-size: 1.1em;
-    line-height: 1em;
-    margin: 15px 0;
+    margin: 1.45em 0 0.6em;
   }
 
   pre {
