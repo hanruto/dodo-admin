@@ -3,19 +3,32 @@ import axios from '../config/axios'
 import Base from './base'
 
 export default class Store extends Base {
-  @observable analysis = []
+  @observable pvAndUv = { pvCount: 0, dayPvCount: 0, uvCount: 0, dayUvCount: 0 }
   @observable records = {}
+  @observable analysis = {}
 
   @action
-  getRecords = () => {
-    return axios.get('/view-records', { params: { limit: 40 } }).then(data => {
-      this.records = data
-    })
+  getRecords = ({ page, perPage, type }) => {
+    return axios
+      .get('/tracks', { params: { limit: perPage, skip: (page - 1) * perPage, type } })
+      .then(records => {
+        this.records = { page, perPage, list: records.list, total: records.total }
+      })
   }
 
-  getAnalysis = () => {
-    return axios.get('/view-records/analysis').then(data => {
-      this.analysis = data
-    })
+  @action
+  getAnalysis = (duration) => {
+    return axios.get('/tracks/analysis', { params: { duration } })
+      .then(data => {
+        this.analysis = data
+      })
+  }
+
+  @action
+  getRecordsPvAndUv = () => {
+    return axios.get('/tracks/pv-uv')
+      .then(data => {
+        this.pvAndUv = data
+      })
   }
 }

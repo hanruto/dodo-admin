@@ -4,7 +4,27 @@
   border-top: none;
   border-bottom: none;
   padding: 24px 0;
+
+  .head-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .duration-select {
+    display: flex;
+    
+    span {
+      margin-left: 10px;
+
+      &.active {
+        color: $primary-color;
+      }
+    }
+  }
 }
+
 .view-record-chart-wrapper {
   width: 100%;
   display: flex;

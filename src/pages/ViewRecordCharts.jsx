@@ -3,10 +3,15 @@ import { inject, observer } from 'mobx-react'
 import { LineChart, Tooltip, XAxis, CartesianGrid, Line, Legend } from 'recharts'
 
 export function Chart(props) {
-  const width = props.data.length * 60
+  if (!props.data || !props.data.length) {
+    return <div style={{ padding: '100px 0' }}>暂无数据</div>
+  }
+
+  const data = JSON.parse(JSON.stringify(props.data))
+  const width = props.data.length * 60 > 1000 ? props.data.length * 60 : 1000
 
   return (
-    <LineChart width={width} height={450} data={props.data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
+    <LineChart width={width} height={450} data={data} margin={{ top: 5, right: 20, left: 10, bottom: 5 }}>
       <XAxis dataKey="date" />
       <Tooltip />
       <CartesianGrid stroke="#f5f5f5" />
@@ -17,20 +22,49 @@ export function Chart(props) {
   )
 }
 
+const durationSelects = [30, 15, 7]
+
 @inject('viewRecordStore')
 @observer
 export default class ViewRecordList extends React.Component {
+  state = {
+    duration: 7
+  }
+
   componentDidMount() {
-    this.props.viewRecordStore.getAnalysis()
+    this.fetchData()
+  }
+
+  handleDurationChanage = duration => {
+    this.setState({ duration }, this.fetchData)
+  }
+
+  fetchData = () => {
+    this.props.viewRecordStore.getAnalysis(this.state.duration)
   }
 
   render() {
     const analysis = this.props.viewRecordStore.analysis
+    const currentDuration = this.state.duration
 
     return (
       <div className="do-container view-record-chart-page">
         <div className="view-record-chart-card">
-          <h4>访问量统计</h4>
+          <div className="head-row">
+            <h4>访问量统计</h4>
+            <div className="duration-select">
+              {durationSelects.map(item => (
+                <span
+                  key={item}
+                  className={item === currentDuration ? 'active' : ''}
+                  onClick={() => this.handleDurationChanage(item)}
+                >
+                  {item}天内
+                </span>
+              ))}
+            </div>
+          </div>
+
           <div className="view-record-chart-wrapper">
             <Chart data={analysis} />
           </div>

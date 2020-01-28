@@ -22,13 +22,13 @@ export function getHour(date) {
 }
 
 export function dateFormater(originDate, isShowHour, opt = {}) {
-  const daySplit = opt.daySplit || '/'
+  const daySplit = opt.daySplit || '.'
   const hourSplit = opt.hourSplit || ':'
   let formatDate = getDay(originDate, daySplit)
 
   if (isShowHour) {
     const formatHour = getHour(originDate, hourSplit)
-    formatDate = `${formatDate} - ${formatHour}`
+    formatDate = `${formatDate} ${formatHour}`
   }
 
   return formatDate

@@ -9,11 +9,21 @@ const menus = [
   { to: '/app/admins', icon: 'coffee', text: '管理员' },
   { to: '/app/users', icon: 'user', text: '用户' },
   { to: '/app/blogs', icon: 'book', text: '博客' },
-  { to: '/app/leaved-messages', icon: 'message', text: '留言' },
+  {
+    icon: 'message',
+    text: '留言',
+    options: [
+      { to: '/app/leave-messages', text: '留言板' },
+      { to: '/app/blog-comments', text: '博客评论' }
+    ]
+  },
   {
     icon: 'smile',
     text: '访客记录',
-    options: [{ to: '/app/view-records', text: '记录' }, { to: '/app/view-records/analysis', text: '统计' }]
+    options: [
+      { to: '/app/view-records', text: '记录' },
+      { to: '/app/view-records/analysis', text: '统计' }
+    ]
   },
   { to: '/login', icon: 'logout', text: '登出' }
 ]

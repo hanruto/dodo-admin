@@ -12,10 +12,16 @@ const columns = [
     width: 120
   },
   {
+    key: 'blog-title',
+    dataIndex: 'blogId.title',
+    title: '博客',
+    width: 270,
+  },
+  {
     key: 'content',
     dataIndex: 'content',
     title: '留言',
-    width: 700
+    width: 500
   },
   {
     key: 'created',
@@ -29,12 +35,14 @@ const columns = [
   }
 ]
 
-export default class LeavedMessageList extends React.Component {
+const PAGE_SIZE = 60
+
+export default class BlogComments extends React.Component {
   state = {
     list: [],
     selectable: false,
     count: 0,
-    perPage: 15,
+    perPage: PAGE_SIZE,
     page: 1,
     loading: true,
   }
@@ -45,8 +53,7 @@ export default class LeavedMessageList extends React.Component {
 
   fetch = (page = 1) => {
     this.setState({ loading: true })
-    const perPage = 10
-    axios.get('/comments', { params: { page, perPage, type: 2 } })
+    axios.get('/comments', { params: { page, perPage: PAGE_SIZE, type: 1 } })
       .then(data => {
         const { list, total } = data
         const comments = list.map((item, index) => {
@@ -57,7 +64,7 @@ export default class LeavedMessageList extends React.Component {
           return item
         })
 
-        this.setState({ list: comments, count: total, perPage, page, loading: false })
+        this.setState({ list: comments, total, perPage: PAGE_SIZE, page, loading: false })
       })
   }
 
@@ -67,10 +74,10 @@ export default class LeavedMessageList extends React.Component {
       .then(() => this.fetch(this.state.page))
   }
 
-  handleTogglePage = page => this.fetch(page)
+  handleTogglePage = pagination => this.fetch(pagination.current)
 
   render() {
-    const { list, loading } = this.state
+    const { list, loading, page, perPage, total } = this.state
 
     return (
       <div className="do-container">
@@ -79,7 +86,9 @@ export default class LeavedMessageList extends React.Component {
           className="leaved-message-table"
           columns={columns}
           dataSource={list}
-          pagination={false} />
+          pagination={{ current: page, pageSize: perPage, total }}
+          onChange={this.handleTogglePage}
+        />
       </div>
     )
   }

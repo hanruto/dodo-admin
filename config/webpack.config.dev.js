@@ -14,7 +14,7 @@ const config = Object.assign(baseConfig, {
     hot: true,
     open: true,
     overlay: true,
-    port: 8085
+    port: 8086
   }
 })
 
