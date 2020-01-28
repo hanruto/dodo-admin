@@ -2,6 +2,7 @@ import React from 'react'
 import loadableComponent from 'loadable-components'
 import Spin from 'antd/lib/spin'
 import { Route, Switch, Redirect } from 'react-router-dom'
+import NotFound from '../pages/NotFound'
 
 const loadable = (Component) => {
   return loadableComponent(
@@ -20,7 +21,8 @@ export default function PageRouter() {
       <Route exact path="/app/blogs/:blogId" component={EditBlog} />
       <Route exact path="/app/blogs/:blogId/view" component={BlogView} />
       <Route path="/app" component={Layout} />
-      <Redirect to="/app" />
+      <Route path="/" render={() => <Redirect to="/app/admins" />} />
+      <Route component={NotFound} />
     </Switch>
   )
 }

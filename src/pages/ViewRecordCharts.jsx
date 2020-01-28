@@ -22,7 +22,7 @@ export function Chart(props) {
   )
 }
 
-const durationSelects = [30, 15, 7]
+const durationSelects = [7, 15, 30]
 
 @inject('viewRecordStore')
 @observer
