@@ -70,7 +70,7 @@ export default class LeavedMessageList extends React.Component {
   handleTogglePage = page => this.fetch(page)
 
   render() {
-    const { list, loading } = this.state
+    const { list, loading, page, total, perPage } = this.state
 
     return (
       <div className="do-container">
@@ -79,7 +79,7 @@ export default class LeavedMessageList extends React.Component {
           className="leaved-message-table"
           columns={columns}
           dataSource={list}
-          pagination={false} />
+          pagination={{ current: page, pageSize: perPage, total }} />
       </div>
     )
   }
