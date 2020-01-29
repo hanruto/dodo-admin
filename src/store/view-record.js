@@ -3,9 +3,10 @@ import axios from '../config/axios'
 import Base from './base'
 
 export default class Store extends Base {
-  @observable pvAndUv = { pvCount: 0, dayPvCount: 0, uvCount: 0, dayUvCount: 0 }
+  @observable pvAndUv = { pvCount: 0, pvDayCount: 0, uvCount: 0, uvDayCount: 0 }
   @observable records = {}
   @observable analysis = {}
+  @observable whitelist = []
 
   @action
   getRecords = ({ page, perPage, type }) => {
@@ -30,5 +31,26 @@ export default class Store extends Base {
       .then(data => {
         this.pvAndUv = data
       })
+  }
+
+  @action
+  getIpWhitelist = () => {
+    return axios.get('/whitelist', { params: { type: 'ip' } })
+      .then(data => {
+        this.whitelist = data
+      })
+  }
+
+  @action
+  addIpItem = (ip) => {
+    return axios.post('/whitelist', { type: 'ip', value: ip })
+      .then(data => {
+        this.whitelist = data
+      })
+  }
+
+  @action
+  removeIpItem = (ip) => {
+    return axios.delete('/whitelist', { params: { type: 'ip', value: ip } })
   }
 }

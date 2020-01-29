@@ -22,7 +22,8 @@ const menus = [
     text: '访客记录',
     options: [
       { to: '/app/view-records', text: '记录' },
-      { to: '/app/view-records/analysis', text: '统计' }
+      { to: '/app/view-records/analysis', text: '统计' },
+      { to: '/app/view-records/whitelist', text: 'ip白名单' },
     ]
   },
   { to: '/login', icon: 'logout', text: '登出' }

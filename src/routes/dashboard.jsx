@@ -6,7 +6,9 @@ import LeavedMessageList from '../pages/LeavedMessageList'
 import ViewRecordList from '../pages/ViewRecordList'
 import UserList from '../pages/UserList'
 import ViewRecordCharts from '../pages/ViewRecordCharts'
+import ViewRecordWhiteList from '../pages/ViewRecordWhiteList'
 import BlogComments from '../pages/BlogComments'
+import NotFound from '../pages/NotFound'
 
 const DashboardRouter = () => (
   <Switch>
@@ -17,6 +19,8 @@ const DashboardRouter = () => (
     <Route path="/app/blog-comments" component={BlogComments} exact />
     <Route path="/app/view-records" component={ViewRecordList} exact />
     <Route path="/app/view-records/analysis" component={ViewRecordCharts} exact />
+    <Route path="/app/view-records/whitelist" component={ViewRecordWhiteList} exact />
+    <Route component={NotFound} />
   </Switch>
 )
 
