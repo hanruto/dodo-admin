@@ -7,7 +7,7 @@ import needLogin from '../util/needLogin'
 
 const menus = [
   { to: '/app/admins', icon: 'coffee', text: '管理员' },
-  { to: '/app/users', icon: 'user', text: '用户' },
+  // { to: '/app/users', icon: 'user', text: '用户' },
   { to: '/app/blogs', icon: 'book', text: '博客' },
   {
     icon: 'message',
