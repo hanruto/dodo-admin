@@ -73,7 +73,7 @@ export default class ViewRecordWhiteList extends React.Component {
     return (
       <div className="do-container view-record-whitelist-page">
         <div className="action-row">
-          <Button type="primary" onClick={this.handleOpen}>新增</Button>
+          <Button type="primary" onClick={this.handleOpen}>新增白名单</Button>
         </div>
 
         <Table loading={loading} columns={columns} dataSource={whitelist} />

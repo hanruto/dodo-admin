@@ -9,6 +9,7 @@ const menus = [
   { to: '/app/admins', icon: 'coffee', text: '管理员' },
   // { to: '/app/users', icon: 'user', text: '用户' },
   { to: '/app/blogs', icon: 'book', text: '博客' },
+  { to: '/app/chat', icon: 'contacts', text: '聊天' },
   {
     icon: 'message',
     text: '留言',

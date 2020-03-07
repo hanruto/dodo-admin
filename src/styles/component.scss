@@ -18,6 +18,21 @@
     }
 }
 
+.do-textarea {
+    padding: 5px 15px;
+    width: 100%;
+    border: 1px solid #ccc;
+    line-height: $input-height;
+    height: 400px;
+    border-radius: $input-radius;
+    &:focus{
+        outline: none;
+    }
+    &::placeholder{
+        text-transform: capitalize;
+    }
+}
+
 .do-btn{
     border: 1px solid #ccc;
     background: none;
@@ -35,6 +50,11 @@
     &:hover{
         background: #eee;
     }
+}
+
+.do-action-row {
+    text-align: right;
+    margin-bottom: 20px;
 }
 
 .full-btn{
@@ -65,11 +85,17 @@
     }
 }
 
+.do-page {
+    .do-container {
+        padding: 0 30px;
+    }
+}
 .do-md-container{
     max-width: 1600px;
     margin: 0 auto;
     padding: 0 15px;
 }
+
 .do-content-container{
     max-width: 800px;
     margin: 0 auto;

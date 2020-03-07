@@ -89,13 +89,13 @@
   }
 }
 
-.blog-view-head {
+.do-common-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 60px;
+  padding: 0 30px;
   margin: 30px 0 20px;
-  .blog-view-logo {
+  .do-common-logo {
     width: 90px;
     display: inline-block;
     position: relative;
@@ -112,6 +112,7 @@
 .bf-container .DraftEditor-editorContainer div[data-contents='true'] {
   @include blog-reset;
 }
+
 .bf-container .public-DraftEditor-content {
   padding: 5px 15px;
 }

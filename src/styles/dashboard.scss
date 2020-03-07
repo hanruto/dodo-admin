@@ -1,3 +1,10 @@
+#app {
+  &:before, &:after {
+    content: '';
+    display: table;
+  }
+}
+
 .main-view {
   height: 100vh;
   min-width: 1300px;

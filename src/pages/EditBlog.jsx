@@ -144,9 +144,9 @@ class EditBlog extends React.Component {
     const { tagSelects } = this.state
 
     return (
-      <div className="blog-edit-page">
-        <div className="blog-view-head">
-          <div className="blog-view-logo">
+      <div className="do-page blog-edit-page">
+        <div className="do-common-head">
+          <div className="do-common-logo">
             <img src={logo} alt="" />
           </div>
 
@@ -179,7 +179,7 @@ class EditBlog extends React.Component {
             <div className="do-group">
               <Editor value={editorState} onChange={this.handleChangeEditorState} />
             </div>
-            <div className="do-group">
+            <div className="do-action-row">
               <Button type="primary" style={{ width: 120 }} onClick={this.handleSubmit}>提交</Button>
               <Button onClick={() => this.handleSaveInLocal()} style={{ width: 120, marginLeft: 10 }}>保存在本地</Button>
             </div>
