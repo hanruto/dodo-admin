@@ -27,9 +27,9 @@ class BlogView extends Component {
     const { blog } = this.state
 
     return (
-      <div className="blog-view-page">
-        <div className="blog-view-head">
-          <div className="blog-view-logo">
+      <div className="do-page blog-view-page">
+        <div className="do-common-head blog-view-head">
+          <div className="do-common-logo">
             <img src={logo} alt="" />
           </div>
 
