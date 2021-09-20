@@ -20,7 +20,7 @@
     "loadable-components": "^2.2.3",
     "mobx": "^5.6.0",
     "mobx-react": "^5.3.6",
-    "prismjs": "^1.17.1",
+    "prismjs": "^1.25.0",
     "react": "^16.3.2",
     "react-color": "^2.14.1",
     "react-dom": "^16.3.2",
